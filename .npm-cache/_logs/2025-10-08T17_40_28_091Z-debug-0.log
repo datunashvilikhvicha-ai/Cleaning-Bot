@@ -1,0 +1,18 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.9.2
+2 info using node@v22.17.0
+3 silly config load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/macbookair/Documents/cleaning-bot/.npmrc
+5 silly config load:file:/Users/macbookair/.npmrc
+6 silly config load:file:/usr/local/etc/npmrc
+7 verbose title npm install @types/express @types/cors
+8 verbose argv "install" "--save-dev" "@types/express" "@types/cors" "--cache" "./.npm-cache"
+9 verbose logfile logs-max:10 dir:/Users/macbookair/Documents/cleaning-bot/.npm-cache/_logs/2025-10-08T17_40_28_091Z-
+10 verbose logfile /Users/macbookair/Documents/cleaning-bot/.npm-cache/_logs/2025-10-08T17_40_28_091Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+13 silly idealTree buildDeps
+14 silly fetch manifest @types/express@*
+15 silly packumentCache full:https://registry.npmjs.org/@types%2fexpress cache-miss
+16 http fetch GET https://registry.npmjs.org/@types%2fexpress attempt 1 failed with ENOTFOUND
+17 http fetch GET https://registry.npmjs.org/@types%2fexpress attempt 2 failed with ENOTFOUND

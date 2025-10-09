@@ -1,0 +1,52 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.9.2
+2 info using node@v22.17.0
+3 silly config load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/macbookair/cleaning-bot/.npmrc
+5 silly config load:file:/Users/macbookair/.npmrc
+6 silly config load:file:/usr/local/etc/npmrc
+7 verbose title npm install dotenv zod
+8 verbose argv "install" "dotenv" "zod" "--cache" ".npm-cache"
+9 verbose logfile logs-max:10 dir:/Users/macbookair/cleaning-bot/.npm-cache/_logs/2025-10-08T17_15_35_591Z-
+10 verbose logfile /Users/macbookair/cleaning-bot/.npm-cache/_logs/2025-10-08T17_15_35_591Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+13 silly idealTree buildDeps
+14 silly fetch manifest dotenv@*
+15 silly packumentCache full:https://registry.npmjs.org/dotenv cache-miss
+16 http fetch GET https://registry.npmjs.org/dotenv attempt 1 failed with ENOTFOUND
+17 http fetch GET https://registry.npmjs.org/dotenv attempt 2 failed with ENOTFOUND
+18 http fetch GET https://registry.npmjs.org/dotenv attempt 3 failed with ENOTFOUND
+19 silly fetch manifest zod@*
+20 silly packumentCache full:https://registry.npmjs.org/zod cache-miss
+21 http fetch GET https://registry.npmjs.org/zod attempt 1 failed with ENOTFOUND
+22 http fetch GET https://registry.npmjs.org/zod attempt 2 failed with ENOTFOUND
+23 http fetch GET https://registry.npmjs.org/zod attempt 3 failed with ENOTFOUND
+24 silly placeDep ROOT dotenv@ OK for: cleaning-bot@1.0.0 want: *
+25 silly placeDep ROOT zod@ OK for: cleaning-bot@1.0.0 want: *
+26 verbose type system
+27 verbose stack FetchError: request to https://registry.npmjs.org/dotenv failed, reason: getaddrinfo ENOTFOUND registry.npmjs.org
+27 verbose stack     at ClientRequest.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/minipass-fetch/lib/index.js:130:14)
+27 verbose stack     at ClientRequest.emit (node:events:518:28)
+27 verbose stack     at emitErrorEvent (node:_http_client:104:11)
+27 verbose stack     at _destroy (node:_http_client:898:9)
+27 verbose stack     at onSocketNT (node:_http_client:918:5)
+27 verbose stack     at process.processTicksAndRejections (node:internal/process/task_queues:91:21)
+28 error code ENOTFOUND
+29 error syscall getaddrinfo
+30 error errno ENOTFOUND
+31 error network request to https://registry.npmjs.org/dotenv failed, reason: getaddrinfo ENOTFOUND registry.npmjs.org
+32 error network This is a problem related to network connectivity.
+32 error network In most cases you are behind a proxy or have bad network settings.
+32 error network
+32 error network If you are behind a proxy, please make sure that the
+32 error network 'proxy' config is set properly.  See: 'npm help config'
+33 silly unfinished npm timer reify 1759943735846
+34 silly unfinished npm timer reify:loadTrees 1759943735847
+35 verbose cwd /Users/macbookair/cleaning-bot
+36 verbose os Darwin 24.4.0
+37 verbose node v22.17.0
+38 verbose npm  v10.9.2
+39 verbose exit 1
+40 verbose code 1
+41 error A complete log of this run can be found in: /Users/macbookair/cleaning-bot/.npm-cache/_logs/2025-10-08T17_15_35_591Z-debug-0.log

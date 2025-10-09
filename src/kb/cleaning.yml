@@ -1,0 +1,28 @@
+company:
+  name: "Sparkle & Shine Cleaning Co."
+  currency: "USD"
+  serviceAreas:
+    - "San Francisco, CA"
+    - "Oakland, CA"
+    - "Berkeley, CA"
+  hours:
+    weekdays: "08:00-20:00"
+    weekends: "09:00-18:00"
+pricing:
+  base_visit_fee: 65
+  per_room: 22
+  per_bath: 18
+  per_sqm: 0.45
+  deep_clean_multiplier: 1.4
+  frequency_discounts:
+    one_time: 1
+    weekly: 0.85
+    biweekly: 0.9
+    monthly: 0.95
+addons:
+  inside_oven: 30
+  inside_fridge: 25
+  windows_per_room: 12
+policies:
+  cancellation: "Free reschedule up to 24 hours before the visit; 50% fee inside 24 hours."
+  supplies: "Standard supplies and equipment provided; tell us if you prefer eco products."

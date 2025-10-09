@@ -1,0 +1,661 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.9.2
+2 info using node@v22.17.0
+3 silly config load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/macbookair/Documents/cleaning-bot/.npmrc
+5 silly config load:file:/Users/macbookair/.npmrc
+6 silly config load:file:/usr/local/etc/npmrc
+7 verbose title npm install @types/express @types/cors
+8 verbose argv "install" "--save-dev" "@types/express" "@types/cors" "--cache" "./.npm-cache"
+9 verbose logfile logs-max:10 dir:/Users/macbookair/Documents/cleaning-bot/.npm-cache/_logs/2025-10-08T17_43_24_313Z-
+10 verbose logfile /Users/macbookair/Documents/cleaning-bot/.npm-cache/_logs/2025-10-08T17_43_24_313Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+13 silly idealTree buildDeps
+14 silly fetch manifest @types/express@*
+15 silly packumentCache full:https://registry.npmjs.org/@types%2fexpress cache-miss
+16 http fetch GET 200 https://registry.npmjs.org/@types%2fexpress 587ms (cache miss)
+17 silly packumentCache full:https://registry.npmjs.org/@types%2fexpress set size:undefined disposed:false
+18 silly fetch manifest @types/cors@*
+19 silly packumentCache full:https://registry.npmjs.org/@types%2fcors cache-miss
+20 http fetch GET 200 https://registry.npmjs.org/@types%2fcors 230ms (cache miss)
+21 silly packumentCache full:https://registry.npmjs.org/@types%2fcors set size:undefined disposed:false
+22 silly placeDep ROOT @types/cors@2.8.19 OK for: cleaning-bot@1.0.0 want: *
+23 silly placeDep ROOT @types/express@5.0.3 OK for: cleaning-bot@1.0.0 want: *
+24 silly fetch manifest @types/body-parser@*
+25 silly packumentCache full:https://registry.npmjs.org/@types%2fbody-parser cache-miss
+26 silly fetch manifest @types/serve-static@*
+27 silly packumentCache full:https://registry.npmjs.org/@types%2fserve-static cache-miss
+28 silly fetch manifest @types/express-serve-static-core@^5.0.0
+29 silly packumentCache full:https://registry.npmjs.org/@types%2fexpress-serve-static-core cache-miss
+30 http fetch GET 200 https://registry.npmjs.org/@types%2fserve-static 201ms (cache miss)
+31 silly packumentCache full:https://registry.npmjs.org/@types%2fserve-static set size:undefined disposed:false
+32 http fetch GET 200 https://registry.npmjs.org/@types%2fbody-parser 217ms (cache miss)
+33 silly packumentCache full:https://registry.npmjs.org/@types%2fbody-parser set size:undefined disposed:false
+34 http fetch GET 200 https://registry.npmjs.org/@types%2fexpress-serve-static-core 352ms (cache miss)
+35 silly packumentCache full:https://registry.npmjs.org/@types%2fexpress-serve-static-core set size:undefined disposed:false
+36 silly placeDep ROOT @types/body-parser@1.19.6 OK for: @types/express@5.0.3 want: *
+37 silly placeDep ROOT @types/express-serve-static-core@5.1.0 OK for: @types/express@5.0.3 want: ^5.0.0
+38 silly placeDep ROOT @types/serve-static@1.15.9 OK for: @types/express@5.0.3 want: *
+39 silly fetch manifest @types/connect@*
+40 silly packumentCache full:https://registry.npmjs.org/@types%2fconnect cache-miss
+41 silly fetch manifest @types/qs@*
+42 silly packumentCache full:https://registry.npmjs.org/@types%2fqs cache-miss
+43 silly fetch manifest @types/send@*
+44 silly packumentCache full:https://registry.npmjs.org/@types%2fsend cache-miss
+45 silly fetch manifest @types/range-parser@*
+46 silly packumentCache full:https://registry.npmjs.org/@types%2frange-parser cache-miss
+47 silly fetch manifest @types/send@<1
+48 silly packumentCache full:https://registry.npmjs.org/@types%2fsend cache-miss
+49 silly fetch manifest @types/http-errors@*
+50 silly packumentCache full:https://registry.npmjs.org/@types%2fhttp-errors cache-miss
+51 http fetch GET 200 https://registry.npmjs.org/@types%2fconnect 214ms (cache miss)
+52 silly packumentCache full:https://registry.npmjs.org/@types%2fconnect set size:undefined disposed:false
+53 http fetch GET 200 https://registry.npmjs.org/@types%2fsend 221ms (cache miss)
+54 silly packumentCache full:https://registry.npmjs.org/@types%2fsend set size:undefined disposed:false
+55 http fetch GET 200 https://registry.npmjs.org/@types%2fqs 222ms (cache miss)
+56 silly packumentCache full:https://registry.npmjs.org/@types%2fqs set size:undefined disposed:false
+57 http fetch GET 200 https://registry.npmjs.org/@types%2fsend 241ms (cache miss)
+58 silly packumentCache full:https://registry.npmjs.org/@types%2fsend set size:undefined disposed:false
+59 http fetch GET 200 https://registry.npmjs.org/@types%2fhttp-errors 390ms (cache miss)
+60 silly packumentCache full:https://registry.npmjs.org/@types%2fhttp-errors set size:undefined disposed:false
+61 http fetch GET 200 https://registry.npmjs.org/@types%2frange-parser 394ms (cache miss)
+62 silly packumentCache full:https://registry.npmjs.org/@types%2frange-parser set size:undefined disposed:false
+63 silly placeDep ROOT @types/connect@3.4.38 OK for: @types/body-parser@1.19.6 want: *
+64 silly placeDep ROOT @types/qs@6.14.0 OK for: @types/express-serve-static-core@5.1.0 want: *
+65 silly placeDep ROOT @types/range-parser@1.2.7 OK for: @types/express-serve-static-core@5.1.0 want: *
+66 silly placeDep ROOT @types/send@1.2.0 OK for: @types/express-serve-static-core@5.1.0 want: *
+67 silly placeDep ROOT @types/http-errors@2.0.5 OK for: @types/serve-static@1.15.9 want: *
+68 silly placeDep node_modules/@types/serve-static @types/send@0.17.5 OK for: @types/serve-static@1.15.9 want: <1
+69 silly fetch manifest @types/mime@^1
+70 silly packumentCache full:https://registry.npmjs.org/@types%2fmime cache-miss
+71 http fetch GET 200 https://registry.npmjs.org/@types%2fmime 799ms (cache miss)
+72 silly packumentCache full:https://registry.npmjs.org/@types%2fmime set size:undefined disposed:false
+73 silly placeDep ROOT @types/mime@1.3.5 OK for: @types/send@0.17.5 want: ^1
+74 silly reify moves {}
+75 silly audit bulk request {
+75 silly audit   '@esbuild/aix-ppc64': [ '0.25.10' ],
+75 silly audit   '@esbuild/android-arm': [ '0.25.10' ],
+75 silly audit   '@esbuild/android-arm64': [ '0.25.10' ],
+75 silly audit   '@esbuild/android-x64': [ '0.25.10' ],
+75 silly audit   '@esbuild/darwin-arm64': [ '0.25.10' ],
+75 silly audit   '@esbuild/darwin-x64': [ '0.25.10' ],
+75 silly audit   '@esbuild/freebsd-arm64': [ '0.25.10' ],
+75 silly audit   '@esbuild/freebsd-x64': [ '0.25.10' ],
+75 silly audit   '@esbuild/linux-arm': [ '0.25.10' ],
+75 silly audit   '@esbuild/linux-arm64': [ '0.25.10' ],
+75 silly audit   '@esbuild/linux-ia32': [ '0.25.10' ],
+75 silly audit   '@esbuild/linux-loong64': [ '0.25.10' ],
+75 silly audit   '@esbuild/linux-mips64el': [ '0.25.10' ],
+75 silly audit   '@esbuild/linux-ppc64': [ '0.25.10' ],
+75 silly audit   '@esbuild/linux-riscv64': [ '0.25.10' ],
+75 silly audit   '@esbuild/linux-s390x': [ '0.25.10' ],
+75 silly audit   '@esbuild/linux-x64': [ '0.25.10' ],
+75 silly audit   '@esbuild/netbsd-arm64': [ '0.25.10' ],
+75 silly audit   '@esbuild/netbsd-x64': [ '0.25.10' ],
+75 silly audit   '@esbuild/openbsd-arm64': [ '0.25.10' ],
+75 silly audit   '@esbuild/openbsd-x64': [ '0.25.10' ],
+75 silly audit   '@esbuild/openharmony-arm64': [ '0.25.10' ],
+75 silly audit   '@esbuild/sunos-x64': [ '0.25.10' ],
+75 silly audit   '@esbuild/win32-arm64': [ '0.25.10' ],
+75 silly audit   '@esbuild/win32-ia32': [ '0.25.10' ],
+75 silly audit   '@esbuild/win32-x64': [ '0.25.10' ],
+75 silly audit   '@eslint-community/eslint-utils': [ '4.9.0' ],
+75 silly audit   '@eslint-community/regexpp': [ '4.12.1' ],
+75 silly audit   '@eslint/config-array': [ '0.21.0' ],
+75 silly audit   'brace-expansion': [ '1.1.12', '2.0.2' ],
+75 silly audit   minimatch: [ '3.1.2', '9.0.5' ],
+75 silly audit   '@eslint/config-helpers': [ '0.4.0' ],
+75 silly audit   '@eslint/core': [ '0.16.0' ],
+75 silly audit   '@eslint/eslintrc': [ '3.3.1' ],
+75 silly audit   ignore: [ '5.3.2', '7.0.5' ],
+75 silly audit   '@eslint/js': [ '9.37.0' ],
+75 silly audit   '@eslint/object-schema': [ '2.1.6' ],
+75 silly audit   '@eslint/plugin-kit': [ '0.4.0' ],
+75 silly audit   '@humanfs/core': [ '0.19.1' ],
+75 silly audit   '@humanfs/node': [ '0.16.7' ],
+75 silly audit   '@humanwhocodes/module-importer': [ '1.0.1' ],
+75 silly audit   '@humanwhocodes/retry': [ '0.4.3' ],
+75 silly audit   '@jridgewell/sourcemap-codec': [ '1.5.5' ],
+75 silly audit   '@nodelib/fs.scandir': [ '2.1.5' ],
+75 silly audit   '@nodelib/fs.stat': [ '2.0.5' ],
+75 silly audit   '@nodelib/fs.walk': [ '1.2.8' ],
+75 silly audit   '@pkgr/core': [ '0.2.9' ],
+75 silly audit   '@rollup/rollup-android-arm-eabi': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-android-arm64': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-darwin-arm64': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-darwin-x64': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-freebsd-arm64': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-freebsd-x64': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-linux-arm-gnueabihf': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-linux-arm-musleabihf': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-linux-arm64-gnu': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-linux-arm64-musl': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-linux-loong64-gnu': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-linux-ppc64-gnu': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-linux-riscv64-gnu': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-linux-riscv64-musl': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-linux-s390x-gnu': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-linux-x64-gnu': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-linux-x64-musl': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-openharmony-arm64': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-win32-arm64-msvc': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-win32-ia32-msvc': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-win32-x64-gnu': [ '4.52.4' ],
+75 silly audit   '@rollup/rollup-win32-x64-msvc': [ '4.52.4' ],
+75 silly audit   '@types/chai': [ '5.2.2' ],
+75 silly audit   '@types/deep-eql': [ '4.0.2' ],
+75 silly audit   '@types/estree': [ '1.0.8' ],
+75 silly audit   '@types/json-schema': [ '7.0.15' ],
+75 silly audit   '@types/node': [ '24.7.0' ],
+75 silly audit   '@typescript-eslint/eslint-plugin': [ '8.46.0' ],
+75 silly audit   '@typescript-eslint/parser': [ '8.46.0' ],
+75 silly audit   '@typescript-eslint/project-service': [ '8.46.0' ],
+75 silly audit   '@typescript-eslint/scope-manager': [ '8.46.0' ],
+75 silly audit   '@typescript-eslint/tsconfig-utils': [ '8.46.0' ],
+75 silly audit   '@typescript-eslint/type-utils': [ '8.46.0' ],
+75 silly audit   '@typescript-eslint/types': [ '8.46.0' ],
+75 silly audit   '@typescript-eslint/typescript-estree': [ '8.46.0' ],
+75 silly audit   '@typescript-eslint/utils': [ '8.46.0' ],
+75 silly audit   '@typescript-eslint/visitor-keys': [ '8.46.0' ],
+75 silly audit   'eslint-visitor-keys': [ '4.2.1', '3.4.3' ],
+75 silly audit   '@vitest/expect': [ '3.2.4' ],
+75 silly audit   '@vitest/mocker': [ '3.2.4' ],
+75 silly audit   '@vitest/pretty-format': [ '3.2.4' ],
+75 silly audit   '@vitest/runner': [ '3.2.4' ],
+75 silly audit   '@vitest/snapshot': [ '3.2.4' ],
+75 silly audit   '@vitest/spy': [ '3.2.4' ],
+75 silly audit   '@vitest/utils': [ '3.2.4' ],
+75 silly audit   accepts: [ '2.0.0' ],
+75 silly audit   acorn: [ '8.15.0' ],
+75 silly audit   'acorn-jsx': [ '5.3.2' ],
+75 silly audit   ajv: [ '6.12.6' ],
+75 silly audit   'ansi-styles': [ '4.3.0' ],
+75 silly audit   argparse: [ '2.0.1' ],
+75 silly audit   'assertion-error': [ '2.0.1' ],
+75 silly audit   'balanced-match': [ '1.0.2' ],
+75 silly audit   'body-parser': [ '2.2.0' ],
+75 silly audit   braces: [ '3.0.3' ],
+75 silly audit   bytes: [ '3.1.2' ],
+75 silly audit   cac: [ '6.7.14' ],
+75 silly audit   'call-bind-apply-helpers': [ '1.0.2' ],
+75 silly audit   'call-bound': [ '1.0.4' ],
+75 silly audit   callsites: [ '3.1.0' ],
+75 silly audit   chai: [ '5.3.3' ],
+75 silly audit   chalk: [ '4.1.2' ],
+75 silly audit   'check-error': [ '2.1.1' ],
+75 silly audit   'color-convert': [ '2.0.1' ],
+75 silly audit   'color-name': [ '1.1.4' ],
+75 silly audit   'concat-map': [ '0.0.1' ],
+75 silly audit   'content-disposition': [ '1.0.0' ],
+75 silly audit   'content-type': [ '1.0.5' ],
+75 silly audit   cookie: [ '0.7.2' ],
+75 silly audit   'cookie-signature': [ '1.2.2' ],
+75 silly audit   cors: [ '2.8.5' ],
+75 silly audit   'cross-spawn': [ '7.0.6' ],
+75 silly audit   debug: [ '4.4.3' ],
+75 silly audit   'deep-eql': [ '5.0.2' ],
+75 silly audit   'deep-is': [ '0.1.4' ],
+75 silly audit   depd: [ '2.0.0' ],
+75 silly audit   dotenv: [ '17.2.3' ],
+75 silly audit   'dunder-proto': [ '1.0.1' ],
+75 silly audit   'ee-first': [ '1.1.1' ],
+75 silly audit   encodeurl: [ '2.0.0' ],
+75 silly audit   'es-define-property': [ '1.0.1' ],
+75 silly audit   'es-errors': [ '1.3.0' ],
+75 silly audit   'es-module-lexer': [ '1.7.0' ],
+75 silly audit   'es-object-atoms': [ '1.1.1' ],
+75 silly audit   esbuild: [ '0.25.10' ],
+75 silly audit   'escape-html': [ '1.0.3' ],
+75 silly audit   'escape-string-regexp': [ '4.0.0' ],
+75 silly audit   eslint: [ '9.37.0' ],
+75 silly audit   'eslint-config-prettier': [ '10.1.8' ],
+75 silly audit   'eslint-plugin-prettier': [ '5.5.4' ],
+75 silly audit   'eslint-scope': [ '8.4.0' ],
+75 silly audit   espree: [ '10.4.0' ],
+75 silly audit   esquery: [ '1.6.0' ],
+75 silly audit   esrecurse: [ '4.3.0' ],
+75 silly audit   estraverse: [ '5.3.0' ],
+75 silly audit   'estree-walker': [ '3.0.3' ],
+75 silly audit   esutils: [ '2.0.3' ],
+75 silly audit   etag: [ '1.8.1' ],
+75 silly audit   'expect-type': [ '1.2.2' ],
+75 silly audit   express: [ '5.1.0' ],
+75 silly audit   'fast-deep-equal': [ '3.1.3' ],
+75 silly audit   'fast-diff': [ '1.3.0' ],
+75 silly audit   'fast-glob': [ '3.3.3' ],
+75 silly audit   'glob-parent': [ '5.1.2', '6.0.2' ],
+75 silly audit   'fast-json-stable-stringify': [ '2.1.0' ],
+75 silly audit   'fast-levenshtein': [ '2.0.6' ],
+75 silly audit   fastq: [ '1.19.1' ],
+75 silly audit   'file-entry-cache': [ '8.0.0' ],
+75 silly audit   'fill-range': [ '7.1.1' ],
+75 silly audit   finalhandler: [ '2.1.0' ],
+75 silly audit   'find-up': [ '5.0.0' ],
+75 silly audit   'flat-cache': [ '4.0.1' ],
+75 silly audit   flatted: [ '3.3.3' ],
+75 silly audit   forwarded: [ '0.2.0' ],
+75 silly audit   fresh: [ '2.0.0' ],
+75 silly audit   fsevents: [ '2.3.3' ],
+75 silly audit   'function-bind': [ '1.1.2' ],
+75 silly audit   'get-intrinsic': [ '1.3.0' ],
+75 silly audit   'get-proto': [ '1.0.1' ],
+75 silly audit   'get-tsconfig': [ '4.11.0' ],
+75 silly audit   globals: [ '14.0.0' ],
+75 silly audit   gopd: [ '1.2.0' ],
+75 silly audit   graphemer: [ '1.4.0' ],
+75 silly audit   'has-flag': [ '4.0.0' ],
+75 silly audit   'has-symbols': [ '1.1.0' ],
+75 silly audit   hasown: [ '2.0.2' ],
+75 silly audit   'http-errors': [ '2.0.0' ],
+75 silly audit   statuses: [ '2.0.1', '2.0.2' ],
+75 silly audit   'iconv-lite': [ '0.6.3', '0.7.0' ],
+75 silly audit   'import-fresh': [ '3.3.1' ],
+75 silly audit   imurmurhash: [ '0.1.4' ],
+75 silly audit   inherits: [ '2.0.4' ],
+75 silly audit   'ipaddr.js': [ '1.9.1' ],
+75 silly audit   'is-extglob': [ '2.1.1' ],
+75 silly audit   'is-glob': [ '4.0.3' ],
+75 silly audit   'is-number': [ '7.0.0' ],
+75 silly audit   'is-promise': [ '4.0.0' ],
+75 silly audit   isexe: [ '2.0.0' ],
+75 silly audit   'js-tokens': [ '9.0.1' ],
+75 silly audit   'js-yaml': [ '4.1.0' ],
+75 silly audit   'json-buffer': [ '3.0.1' ],
+75 silly audit   'json-schema-traverse': [ '0.4.1' ],
+75 silly audit   'json-stable-stringify-without-jsonify': [ '1.0.1' ],
+75 silly audit   keyv: [ '4.5.4' ],
+75 silly audit   levn: [ '0.4.1' ],
+75 silly audit   'locate-path': [ '6.0.0' ],
+75 silly audit   'lodash.merge': [ '4.6.2' ],
+75 silly audit   loupe: [ '3.2.1' ],
+75 silly audit   'magic-string': [ '0.30.19' ],
+75 silly audit   'math-intrinsics': [ '1.1.0' ],
+75 silly audit   'media-typer': [ '1.1.0' ],
+75 silly audit   'merge-descriptors': [ '2.0.0' ],
+75 silly audit   merge2: [ '1.4.1' ],
+75 silly audit   micromatch: [ '4.0.8' ],
+75 silly audit   'mime-db': [ '1.54.0' ],
+75 silly audit   'mime-types': [ '3.0.1' ],
+75 silly audit   ms: [ '2.1.3' ],
+75 silly audit   nanoid: [ '3.3.11' ],
+75 silly audit   'natural-compare': [ '1.4.0' ],
+75 silly audit   negotiator: [ '1.0.0' ],
+75 silly audit   'object-assign': [ '4.1.1' ],
+75 silly audit   'object-inspect': [ '1.13.4' ],
+75 silly audit   'on-finished': [ '2.4.1' ],
+75 silly audit   once: [ '1.4.0' ],
+75 silly audit   optionator: [ '0.9.4' ],
+75 silly audit   'p-limit': [ '3.1.0' ],
+75 silly audit   'p-locate': [ '5.0.0' ],
+75 silly audit   'parent-module': [ '1.0.1' ],
+75 silly audit   parseurl: [ '1.3.3' ],
+75 silly audit   'path-exists': [ '4.0.0' ],
+75 silly audit   'path-key': [ '3.1.1' ],
+75 silly audit   'path-to-regexp': [ '8.3.0' ],
+75 silly audit   pathe: [ '2.0.3' ],
+75 silly audit   pathval: [ '2.0.1' ],
+75 silly audit   picocolors: [ '1.1.1' ],
+75 silly audit   picomatch: [ '2.3.1', '4.0.3' ],
+75 silly audit   postcss: [ '8.5.6' ],
+75 silly audit   'prelude-ls': [ '1.2.1' ],
+75 silly audit   prettier: [ '3.6.2' ],
+75 silly audit   'prettier-linter-helpers': [ '1.0.0' ],
+75 silly audit   'proxy-addr': [ '2.0.7' ],
+75 silly audit   punycode: [ '2.3.1' ],
+75 silly audit   qs: [ '6.14.0' ],
+75 silly audit   'queue-microtask': [ '1.2.3' ],
+75 silly audit   'range-parser': [ '1.2.1' ],
+75 silly audit   'raw-body': [ '3.0.1' ],
+75 silly audit   'resolve-from': [ '4.0.0' ],
+75 silly audit   'resolve-pkg-maps': [ '1.0.0' ],
+75 silly audit   reusify: [ '1.1.0' ],
+75 silly audit   rollup: [ '4.52.4' ],
+75 silly audit   router: [ '2.2.0' ],
+75 silly audit   'run-parallel': [ '1.2.0' ],
+75 silly audit   'safe-buffer': [ '5.2.1' ],
+75 silly audit   'safer-buffer': [ '2.1.2' ],
+75 silly audit   semver: [ '7.7.3' ],
+75 silly audit   send: [ '1.2.0' ],
+75 silly audit   'serve-static': [ '2.2.0' ],
+75 silly audit   setprototypeof: [ '1.2.0' ],
+75 silly audit   'shebang-command': [ '2.0.0' ],
+75 silly audit   'shebang-regex': [ '3.0.0' ],
+75 silly audit   'side-channel': [ '1.1.0' ],
+75 silly audit   'side-channel-list': [ '1.0.0' ],
+75 silly audit   'side-channel-map': [ '1.0.1' ],
+75 silly audit   'side-channel-weakmap': [ '1.0.2' ],
+75 silly audit   siginfo: [ '2.0.0' ],
+75 silly audit   'source-map-js': [ '1.2.1' ],
+75 silly audit   stackback: [ '0.0.2' ],
+75 silly audit   'std-env': [ '3.9.0' ],
+75 silly audit   'strip-json-comments': [ '3.1.1' ],
+75 silly audit   'strip-literal': [ '3.1.0' ],
+75 silly audit   'supports-color': [ '7.2.0' ],
+75 silly audit   synckit: [ '0.11.11' ],
+75 silly audit   tinybench: [ '2.9.0' ],
+75 silly audit   tinyexec: [ '0.3.2' ],
+75 silly audit   tinyglobby: [ '0.2.15' ],
+75 silly audit   fdir: [ '6.5.0' ],
+75 silly audit   tinypool: [ '1.1.1' ],
+75 silly audit   tinyrainbow: [ '2.0.0' ],
+75 silly audit   tinyspy: [ '4.0.4' ],
+75 silly audit   'to-regex-range': [ '5.0.1' ],
+75 silly audit   toidentifier: [ '1.0.1' ],
+75 silly audit   'ts-api-utils': [ '2.1.0' ],
+75 silly audit   tsx: [ '4.20.6' ],
+75 silly audit   'type-check': [ '0.4.0' ],
+75 silly audit   'type-is': [ '2.0.1' ],
+75 silly audit   typescript: [ '5.9.3' ],
+75 silly audit   'undici-types': [ '7.14.0' ],
+75 silly audit   unpipe: [ '1.0.0' ],
+75 silly audit   'uri-js': [ '4.4.1' ],
+75 silly audit   vary: [ '1.1.2' ],
+75 silly audit   vite: [ '7.1.9' ],
+75 silly audit   'vite-node': [ '3.2.4' ],
+75 silly audit   vitest: [ '3.2.4' ],
+75 silly audit   which: [ '2.0.2' ],
+75 silly audit   'why-is-node-running': [ '2.3.0' ],
+75 silly audit   'word-wrap': [ '1.2.5' ],
+75 silly audit   wrappy: [ '1.0.2' ],
+75 silly audit   yaml: [ '2.8.1' ],
+75 silly audit   'yocto-queue': [ '0.1.0' ],
+75 silly audit   zod: [ '4.1.12' ],
+75 silly audit   '@types/cors': [ '2.8.19' ],
+75 silly audit   '@types/express': [ '5.0.3' ],
+75 silly audit   '@types/body-parser': [ '1.19.6' ],
+75 silly audit   '@types/express-serve-static-core': [ '5.1.0' ],
+75 silly audit   '@types/serve-static': [ '1.15.9' ],
+75 silly audit   '@types/connect': [ '3.4.38' ],
+75 silly audit   '@types/qs': [ '6.14.0' ],
+75 silly audit   '@types/range-parser': [ '1.2.7' ],
+75 silly audit   '@types/send': [ '1.2.0', '0.17.5' ],
+75 silly audit   '@types/http-errors': [ '2.0.5' ],
+75 silly audit   '@types/mime': [ '1.3.5' ]
+75 silly audit }
+76 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-win32-x64-msvc
+77 silly reify mark deleted [
+77 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-win32-x64-msvc'
+77 silly reify ]
+78 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-win32-x64-gnu
+79 silly reify mark deleted [
+79 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-win32-x64-gnu'
+79 silly reify ]
+80 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-win32-ia32-msvc
+81 silly reify mark deleted [
+81 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-win32-ia32-msvc'
+81 silly reify ]
+82 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-win32-arm64-msvc
+83 silly reify mark deleted [
+83 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-win32-arm64-msvc'
+83 silly reify ]
+84 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-openharmony-arm64
+85 silly reify mark deleted [
+85 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-openharmony-arm64'
+85 silly reify ]
+86 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-x64-musl
+87 silly reify mark deleted [
+87 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-x64-musl'
+87 silly reify ]
+88 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-x64-gnu
+89 silly reify mark deleted [
+89 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-x64-gnu'
+89 silly reify ]
+90 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-s390x-gnu
+91 silly reify mark deleted [
+91 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-s390x-gnu'
+91 silly reify ]
+92 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-riscv64-musl
+93 silly reify mark deleted [
+93 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-riscv64-musl'
+93 silly reify ]
+94 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-riscv64-gnu
+95 silly reify mark deleted [
+95 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-riscv64-gnu'
+95 silly reify ]
+96 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-ppc64-gnu
+97 silly reify mark deleted [
+97 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-ppc64-gnu'
+97 silly reify ]
+98 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-loong64-gnu
+99 silly reify mark deleted [
+99 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-loong64-gnu'
+99 silly reify ]
+100 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-arm64-musl
+101 silly reify mark deleted [
+101 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-arm64-musl'
+101 silly reify ]
+102 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-arm64-gnu
+103 silly reify mark deleted [
+103 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-arm64-gnu'
+103 silly reify ]
+104 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-arm-musleabihf
+105 silly reify mark deleted [
+105 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-arm-musleabihf'
+105 silly reify ]
+106 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-arm-gnueabihf
+107 silly reify mark deleted [
+107 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-linux-arm-gnueabihf'
+107 silly reify ]
+108 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-freebsd-x64
+109 silly reify mark deleted [
+109 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-freebsd-x64'
+109 silly reify ]
+110 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-freebsd-arm64
+111 silly reify mark deleted [
+111 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-freebsd-arm64'
+111 silly reify ]
+112 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-darwin-x64
+113 silly reify mark deleted [
+113 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-darwin-x64'
+113 silly reify ]
+114 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-android-arm64
+115 silly reify mark deleted [
+115 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-android-arm64'
+115 silly reify ]
+116 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-android-arm-eabi
+117 silly reify mark deleted [
+117 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@rollup/rollup-android-arm-eabi'
+117 silly reify ]
+118 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/win32-x64
+119 silly reify mark deleted [
+119 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/win32-x64'
+119 silly reify ]
+120 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/win32-ia32
+121 silly reify mark deleted [
+121 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/win32-ia32'
+121 silly reify ]
+122 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/win32-arm64
+123 silly reify mark deleted [
+123 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/win32-arm64'
+123 silly reify ]
+124 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/sunos-x64
+125 silly reify mark deleted [
+125 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/sunos-x64'
+125 silly reify ]
+126 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/openharmony-arm64
+127 silly reify mark deleted [
+127 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/openharmony-arm64'
+127 silly reify ]
+128 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/openbsd-x64
+129 silly reify mark deleted [
+129 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/openbsd-x64'
+129 silly reify ]
+130 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/openbsd-arm64
+131 silly reify mark deleted [
+131 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/openbsd-arm64'
+131 silly reify ]
+132 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/netbsd-x64
+133 silly reify mark deleted [
+133 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/netbsd-x64'
+133 silly reify ]
+134 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/netbsd-arm64
+135 silly reify mark deleted [
+135 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/netbsd-arm64'
+135 silly reify ]
+136 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-x64
+137 silly reify mark deleted [
+137 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-x64'
+137 silly reify ]
+138 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-s390x
+139 silly reify mark deleted [
+139 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-s390x'
+139 silly reify ]
+140 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-riscv64
+141 silly reify mark deleted [
+141 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-riscv64'
+141 silly reify ]
+142 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-ppc64
+143 silly reify mark deleted [
+143 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-ppc64'
+143 silly reify ]
+144 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-mips64el
+145 silly reify mark deleted [
+145 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-mips64el'
+145 silly reify ]
+146 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-loong64
+147 silly reify mark deleted [
+147 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-loong64'
+147 silly reify ]
+148 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-ia32
+149 silly reify mark deleted [
+149 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-ia32'
+149 silly reify ]
+150 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-arm64
+151 silly reify mark deleted [
+151 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-arm64'
+151 silly reify ]
+152 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-arm
+153 silly reify mark deleted [
+153 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/linux-arm'
+153 silly reify ]
+154 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/freebsd-x64
+155 silly reify mark deleted [
+155 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/freebsd-x64'
+155 silly reify ]
+156 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/freebsd-arm64
+157 silly reify mark deleted [
+157 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/freebsd-arm64'
+157 silly reify ]
+158 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/darwin-x64
+159 silly reify mark deleted [
+159 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/darwin-x64'
+159 silly reify ]
+160 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/android-x64
+161 silly reify mark deleted [
+161 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/android-x64'
+161 silly reify ]
+162 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/android-arm64
+163 silly reify mark deleted [
+163 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/android-arm64'
+163 silly reify ]
+164 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/android-arm
+165 silly reify mark deleted [
+165 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/android-arm'
+165 silly reify ]
+166 verbose reify failed optional dependency /Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/aix-ppc64
+167 silly reify mark deleted [
+167 silly reify   '/Users/macbookair/Documents/cleaning-bot/node_modules/@esbuild/aix-ppc64'
+167 silly reify ]
+168 http cache @types/mime@https://registry.npmjs.org/@types/mime/-/mime-1.3.5.tgz 0ms (cache hit)
+169 http cache @types/range-parser@https://registry.npmjs.org/@types/range-parser/-/range-parser-1.2.7.tgz 0ms (cache hit)
+170 http cache @types/send@https://registry.npmjs.org/@types/send/-/send-1.2.0.tgz 0ms (cache hit)
+171 http cache @types/http-errors@https://registry.npmjs.org/@types/http-errors/-/http-errors-2.0.5.tgz 0ms (cache hit)
+172 http cache @types/qs@https://registry.npmjs.org/@types/qs/-/qs-6.14.0.tgz 0ms (cache hit)
+173 http cache @types/connect@https://registry.npmjs.org/@types/connect/-/connect-3.4.38.tgz 0ms (cache hit)
+174 http cache @types/serve-static@https://registry.npmjs.org/@types/serve-static/-/serve-static-1.15.9.tgz 0ms (cache hit)
+175 http cache @types/express-serve-static-core@https://registry.npmjs.org/@types/express-serve-static-core/-/express-serve-static-core-5.1.0.tgz 0ms (cache hit)
+176 http cache @types/body-parser@https://registry.npmjs.org/@types/body-parser/-/body-parser-1.19.6.tgz 0ms (cache hit)
+177 http cache @types/express@https://registry.npmjs.org/@types/express/-/express-5.0.3.tgz 0ms (cache hit)
+178 http cache @types/cors@https://registry.npmjs.org/@types/cors/-/cors-2.8.19.tgz 0ms (cache hit)
+179 http cache @types/send@https://registry.npmjs.org/@types/send/-/send-0.17.5.tgz 0ms (cache hit)
+180 silly tarball no local data for @types/mime@https://registry.npmjs.org/@types/mime/-/mime-1.3.5.tgz. Extracting by manifest.
+181 silly tarball no local data for @types/range-parser@https://registry.npmjs.org/@types/range-parser/-/range-parser-1.2.7.tgz. Extracting by manifest.
+182 silly tarball no local data for @types/http-errors@https://registry.npmjs.org/@types/http-errors/-/http-errors-2.0.5.tgz. Extracting by manifest.
+183 silly tarball no local data for @types/send@https://registry.npmjs.org/@types/send/-/send-1.2.0.tgz. Extracting by manifest.
+184 silly tarball no local data for @types/qs@https://registry.npmjs.org/@types/qs/-/qs-6.14.0.tgz. Extracting by manifest.
+185 silly tarball no local data for @types/connect@https://registry.npmjs.org/@types/connect/-/connect-3.4.38.tgz. Extracting by manifest.
+186 silly tarball no local data for @types/serve-static@https://registry.npmjs.org/@types/serve-static/-/serve-static-1.15.9.tgz. Extracting by manifest.
+187 silly tarball no local data for @types/express-serve-static-core@https://registry.npmjs.org/@types/express-serve-static-core/-/express-serve-static-core-5.1.0.tgz. Extracting by manifest.
+188 silly tarball no local data for @types/body-parser@https://registry.npmjs.org/@types/body-parser/-/body-parser-1.19.6.tgz. Extracting by manifest.
+189 silly tarball no local data for @types/express@https://registry.npmjs.org/@types/express/-/express-5.0.3.tgz. Extracting by manifest.
+190 silly tarball no local data for @types/cors@https://registry.npmjs.org/@types/cors/-/cors-2.8.19.tgz. Extracting by manifest.
+191 silly tarball no local data for @types/send@https://registry.npmjs.org/@types/send/-/send-0.17.5.tgz. Extracting by manifest.
+192 http fetch GET 200 https://registry.npmjs.org/@types/mime/-/mime-1.3.5.tgz 137ms (cache miss)
+193 http fetch GET 200 https://registry.npmjs.org/@types/qs/-/qs-6.14.0.tgz 143ms (cache miss)
+194 http fetch GET 200 https://registry.npmjs.org/@types/range-parser/-/range-parser-1.2.7.tgz 155ms (cache miss)
+195 http fetch GET 200 https://registry.npmjs.org/@types/send/-/send-1.2.0.tgz 155ms (cache miss)
+196 http fetch GET 200 https://registry.npmjs.org/@types/http-errors/-/http-errors-2.0.5.tgz 156ms (cache miss)
+197 http fetch GET 200 https://registry.npmjs.org/@types/serve-static/-/serve-static-1.15.9.tgz 283ms (cache miss)
+198 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 309ms
+199 silly audit report {}
+200 http fetch GET 200 https://registry.npmjs.org/@types/express/-/express-5.0.3.tgz 299ms (cache miss)
+201 http fetch GET 200 https://registry.npmjs.org/@types/express-serve-static-core/-/express-serve-static-core-5.1.0.tgz 300ms (cache miss)
+202 http fetch GET 200 https://registry.npmjs.org/@types/connect/-/connect-3.4.38.tgz 301ms (cache miss)
+203 http fetch GET 200 https://registry.npmjs.org/@types/body-parser/-/body-parser-1.19.6.tgz 304ms (cache miss)
+204 http fetch GET 200 https://registry.npmjs.org/@types/send/-/send-0.17.5.tgz 314ms (cache miss)
+205 http fetch GET 200 https://registry.npmjs.org/@types/cors/-/cors-2.8.19.tgz 315ms (cache miss)
+206 silly ADD node_modules/@types/mime
+207 silly ADD node_modules/@types/http-errors
+208 silly ADD node_modules/@types/send
+209 silly ADD node_modules/@types/range-parser
+210 silly ADD node_modules/@types/qs
+211 silly ADD node_modules/@types/connect
+212 silly ADD node_modules/@types/serve-static
+213 silly ADD node_modules/@types/serve-static/node_modules/@types/send
+214 silly ADD node_modules/@types/express-serve-static-core
+215 silly ADD node_modules/@types/body-parser
+216 silly ADD node_modules/@types/express
+217 silly ADD node_modules/@types/cors
+218 silly ADD
+219 silly ADD
+220 silly ADD
+221 silly ADD
+222 silly ADD
+223 silly ADD
+224 silly ADD
+225 silly ADD
+226 silly ADD
+227 silly ADD
+228 silly ADD
+229 silly ADD
+230 silly ADD
+231 silly ADD
+232 silly ADD
+233 silly ADD
+234 silly ADD
+235 silly ADD
+236 silly ADD
+237 silly ADD
+238 silly ADD
+239 silly ADD
+240 silly ADD
+241 silly ADD
+242 silly ADD
+243 silly ADD
+244 silly ADD
+245 silly ADD
+246 silly ADD
+247 silly ADD
+248 silly ADD
+249 silly ADD
+250 silly ADD
+251 silly ADD
+252 silly ADD
+253 silly ADD
+254 silly ADD
+255 silly ADD
+256 silly ADD
+257 silly ADD
+258 silly ADD
+259 silly ADD
+260 silly ADD
+261 silly ADD
+262 silly ADD
+263 silly ADD
+264 verbose cwd /Users/macbookair/Documents/cleaning-bot
+265 verbose os Darwin 24.4.0
+266 verbose node v22.17.0
+267 verbose npm  v10.9.2
+268 verbose exit 0
+269 info ok
