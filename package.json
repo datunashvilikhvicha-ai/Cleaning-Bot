@@ -4,9 +4,13 @@
   "description": "AI booking bot for cleaning companies that does instant quotes, booking, payments, changes, reminders, grounded FAQs, human handoff, analytics.",
   "main": "dist/index.js",
   "scripts": {
+    "start": "node server.js",
     "dev": "node server.js",
     "test": "vitest",
     "lint": "eslint \"src/**/*.{ts,tsx}\" --max-warnings=0"
+  },
+  "engines": {
+    "node": "18.x"
   },
   "keywords": [],
   "author": "",
