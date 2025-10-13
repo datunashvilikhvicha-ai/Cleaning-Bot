@@ -1,17 +1,17 @@
 import "dotenv/config";
 import OpenAI from "openai";
 
+console.log("🔑 Checking OPENAI_API_KEY:", !!process.env.OPENAI_API_KEY);
+
 if (!process.env.OPENAI_API_KEY) {
   throw new Error("❌ Missing OPENAI_API_KEY environment variable");
 }
 
-const client = new OpenAI({
+export const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 console.log("✅ OpenAI client initialized");
-
-export default client;
 
 function ensureApiKey() {
   if (!process.env.OPENAI_API_KEY) {
@@ -104,7 +104,7 @@ export async function askBot(userText, { history = [] } = {}) {
   const model = resolveModel();
 
   try {
-    const resp = await client.chat.completions.create({
+    const resp = await openai.chat.completions.create({
       model,
       temperature: 0.6,
       messages: buildMessages(userText, history),
@@ -146,7 +146,7 @@ export async function streamBotResponse(userText, { signal, history = [] } = {})
   const requestOptions = signal ? { signal } : {};
 
   try {
-    const stream = await client.chat.completions.create(
+    const stream = await openai.chat.completions.create(
       {
         model,
         temperature: 0.6,
