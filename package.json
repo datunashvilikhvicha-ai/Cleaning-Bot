@@ -2,13 +2,10 @@
   "name": "cleaning-bot",
   "version": "1.0.0",
   "description": "AI booking bot for cleaning companies that does instant quotes, booking, payments, changes, reminders, grounded FAQs, human handoff, analytics.",
-  "main": "dist/index.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js",
-    "test": "vitest",
-    "lint": "eslint \"src/**/*.{ts,tsx}\" --max-warnings=0"
+    "start": "node server.js"
   },
+  "main": "server.js",
   "engines": {
     "node": "18.x"
   },
