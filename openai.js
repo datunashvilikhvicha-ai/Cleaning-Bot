@@ -1,4 +1,3 @@
-import "dotenv/config";
 import OpenAI from "openai";
 
 console.log("🔑 Checking OPENAI_API_KEY:", !!process.env.OPENAI_API_KEY);
