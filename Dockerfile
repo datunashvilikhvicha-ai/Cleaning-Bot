@@ -1,4 +1,4 @@
-FROM node:22-slim
+FROM node:18-slim
 
 WORKDIR /app
 
@@ -10,4 +10,4 @@ COPY . .
 RUN npm run build || echo "No build step configured"
 
 ENV NODE_ENV=production
-CMD ["node", "dist/server/app.js"]
+CMD ["node", "server.js"]
