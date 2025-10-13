@@ -26,9 +26,11 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "franc": "^6.2.0",
     "openai": "^6.3.0",
     "yaml": "^2.8.1",
     "zod": "^4.1.12"
