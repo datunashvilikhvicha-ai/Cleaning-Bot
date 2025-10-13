@@ -1,10 +1,17 @@
-import 'dotenv/config';
-import OpenAI from 'openai';
+import OpenAI from "openai";
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const apiKey = process.env.OPENAI_API_KEY; // read the key from Railway environment
+
+const client = new OpenAI({
+  apiKey,
+});
+
+console.log('✅ OpenAI client initialized');
+
+export default client;
 
 function ensureApiKey() {
-  if (!process.env.OPENAI_API_KEY) {
+  if (!apiKey) {
     throw new Error('Missing OPENAI_API_KEY environment variable.');
   }
 }
