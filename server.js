@@ -94,6 +94,7 @@ const corsOptions = {
     'X-Client-ID',
     'X-Tenant-ID',
     'X-Bot-Token',
+    'X-Public-Token',
     'X-Stream-Mode',
   ],
 };
@@ -323,14 +324,23 @@ app.get('/admin/leads', async (req, res) => {
 
 // Chat endpoint with SSE streaming + watchdog + fallback
 app.post('/chat', async (req, res) => {
-  const token = (req.header('x-bot-token') || '').toString().trim();
-  if (!token || token !== process.env.BOT_PUBLIC_TOKEN) {
-    return res.status(401).json({ error: 'Unauthorized' });
+  const token = (req.headers['x-public-token'] || '').toString().trim();
+  console.log('Frontend token:', token);
+  console.log('Server BOT_PUBLIC_TOKEN:', process.env.BOT_PUBLIC_TOKEN);
+  if (token !== process.env.BOT_PUBLIC_TOKEN) {
+    const legacyToken = (req.headers['x-bot-token'] || '').toString().trim();
+    if (legacyToken === process.env.BOT_PUBLIC_TOKEN) {
+      console.warn('⚠️ Legacy x-bot-token header accepted');
+    } else {
+      console.error('❌ Unauthorized token mismatch');
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
   }
 
   const tenantId = normalizeTenantId(
     req.header('x-tenant-id') || req.query.tenant || FALLBACK_TENANT_ID,
   );
+  console.log('Incoming chat payload:', req.body);
   const message = (req.body?.message || '').toString().trim();
   if (!message) {
     return res.status(400).json({ error: 'MISSING_MESSAGE' });
@@ -837,7 +847,8 @@ app.get('/widget.js', (req, res) => {
           'X-Stream-Mode': 'json',
           'X-Client-ID': clientId,
           'X-Tenant-ID': tenantId,
-          'X-Bot-Token': token
+          'X-Bot-Token': token,
+          'X-Public-Token': token
         },
         body: JSON.stringify({ message: question })
       })
@@ -1123,7 +1134,8 @@ app.get('/embed', (req, res) => {
               'X-Stream-Mode': 'json',
               'X-Client-ID': clientId,
               'X-Tenant-ID': config.tenantId,
-              'X-Bot-Token': config.token
+              'X-Bot-Token': config.token,
+              'X-Public-Token': config.token
             },
             body: JSON.stringify({ message: question })
           })

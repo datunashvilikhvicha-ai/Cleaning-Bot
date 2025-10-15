@@ -1,3 +1,7 @@
+const widgetConfig = window.CLEANING_BOT_CONFIG || {};
+const TENANT_ID = (widgetConfig.tenantId || 'neurox').toLowerCase();
+const BOT_PUBLIC_TOKEN = widgetConfig.token || '';
+
 const chat = document.getElementById('chat');
 const input = document.getElementById('message');
 const sendBtn = document.getElementById('send');
@@ -6,12 +10,13 @@ const newChatBtn = document.getElementById('new-chat');
 const statusBadge = document.getElementById('api-status');
 const quickActions = Array.from(document.querySelectorAll('.action'));
 
-const CLIENT_STORAGE_KEY = 'neuro-clean-client-id';
+const CLIENT_STORAGE_KEY = `neuro-clean-client-id-${TENANT_ID}`;
 
 let abortController = null;
 let isStreaming = false;
 let clientWatchdog = null;
 let clientFallbackTriggered = false;
+let tokenWarningShown = false;
 
 function ensureClientId() {
   let cid = sessionStorage.getItem(CLIENT_STORAGE_KEY);
@@ -113,9 +118,13 @@ async function runJsonFallback(message, typingBubble) {
         'Content-Type': 'application/json',
         'X-Stream-Mode': 'json',
         'X-Client-ID': clientId,
+        'X-Tenant-ID': TENANT_ID,
+        'X-Bot-Token': BOT_PUBLIC_TOKEN,
+        'X-Public-Token': BOT_PUBLIC_TOKEN,
         Accept: 'application/json',
       },
       credentials: 'include',
+      mode: 'cors',
       body: JSON.stringify({ message }),
     });
     const payload = await response.json().catch(() => ({}));
@@ -138,6 +147,13 @@ async function sendMessage(text) {
   if (isStreaming) return;
   const message = text ?? input.value.trim();
   if (!message) return;
+  if (!BOT_PUBLIC_TOKEN) {
+    if (!tokenWarningShown) {
+      addMessage('bot', 'Configuration error: missing BOT_PUBLIC_TOKEN.');
+      tokenWarningShown = true;
+    }
+    return;
+  }
 
   addMessage('user', message);
   input.value = '';
@@ -189,9 +205,13 @@ async function sendMessage(text) {
         'Content-Type': 'application/json',
         Accept: 'text/event-stream',
         'X-Client-ID': clientId,
+        'X-Tenant-ID': TENANT_ID,
+        'X-Bot-Token': BOT_PUBLIC_TOKEN,
+        'X-Public-Token': BOT_PUBLIC_TOKEN,
       },
       body: JSON.stringify({ message }),
       credentials: 'include',
+      mode: 'cors',
       signal: abortController.signal,
     });
 
@@ -336,8 +356,14 @@ if (newChatBtn) {
     try {
       await fetch('/session/reset', {
         method: 'POST',
-        headers: { 'X-Client-ID': clientId },
+        headers: {
+          'X-Client-ID': clientId,
+          'X-Tenant-ID': TENANT_ID,
+          'X-Bot-Token': BOT_PUBLIC_TOKEN,
+          'X-Public-Token': BOT_PUBLIC_TOKEN,
+        },
         credentials: 'include',
+        mode: 'cors',
       });
     } catch (error) {
       console.error('Failed to reset session', error);
