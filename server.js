@@ -48,13 +48,19 @@ function normalizeTenantId(rawTenantId) {
   return tenantId.replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase() || FALLBACK_TENANT_ID;
 }
 
-const configuredOrigins = new Set(
-  (process.env.CORS_ALLOWED_ORIGINS || '')
+const defaultAllowedOrigins = [
+  'https://neurox.one',
+  'https://cleaning-bot-production-0d1b.up.railway.app',
+];
+
+const configuredOrigins = new Set([
+  ...defaultAllowedOrigins,
+  ...(process.env.CORS_ALLOWED_ORIGINS || '')
     .split(',')
     .map((origin) => origin.trim())
     .filter(Boolean),
-);
-configuredOrigins.add('https://neurox.one');
+]);
+
 if (!isProduction) {
   configuredOrigins.add('http://localhost:3000');
   configuredOrigins.add('http://localhost:5173');
@@ -67,6 +73,11 @@ const allowAllOrigins =
 if (configuredOrigins.has('*')) {
   configuredOrigins.delete('*');
 }
+
+const allowedOriginsList = Array.from(configuredOrigins);
+console.log(
+  `🌐 CORS enabled for: ${allowedOriginsList.length ? allowedOriginsList.join(', ') : 'none'}`,
+);
 
 const corsOptions = {
   origin(origin, callback) {
