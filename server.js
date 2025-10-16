@@ -48,6 +48,31 @@ function normalizeTenantId(rawTenantId) {
   return tenantId.replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase() || FALLBACK_TENANT_ID;
 }
 
+const TOKEN_TENANT_MAP = new Map(
+  [
+    ['neurox2025supersecurechatbottoken1234', 'neurox'],
+  ].map(([token, tenantId]) => [(token || '').trim(), normalizeTenantId(tenantId)]),
+);
+
+function resolveTenantId(req) {
+  const tokenCandidates = [
+    req.headers['x-bot-token'],
+    req.headers['x-public-token'],
+    req.query.token,
+  ];
+
+  for (const candidate of tokenCandidates) {
+    const normalizedToken = (candidate || '').toString().trim();
+    if (normalizedToken && TOKEN_TENANT_MAP.has(normalizedToken)) {
+      return TOKEN_TENANT_MAP.get(normalizedToken);
+    }
+  }
+
+  const tenantHint =
+    req.header('x-tenant-id') || req.query.tenant || FALLBACK_TENANT_ID;
+  return normalizeTenantId(tenantHint);
+}
+
 const defaultAllowedOrigins = [
   'https://neurox.one',
   'https://cleaning-bot-production-0d1b.up.railway.app',
@@ -340,9 +365,7 @@ app.post('/chat', async (req, res) => {
     return res.status(401).json({ error: 'Unauthorized token mismatch' });
   }
 
-  const tenantId = normalizeTenantId(
-    req.header('x-tenant-id') || req.query.tenant || FALLBACK_TENANT_ID,
-  );
+  const tenantId = resolveTenantId(req);
   console.log('Incoming chat payload:', req.body);
   const message = (req.body?.message || '').toString().trim();
   if (!message) {
@@ -637,16 +660,14 @@ app.post('/session/reset', (req, res) => {
     return res.status(400).json({ error: 'MISSING_CLIENT_ID' });
   }
 
-  const tenantId = normalizeTenantId(
-    req.header('x-tenant-id') || req.query.tenant || FALLBACK_TENANT_ID,
-  );
+  const tenantId = resolveTenantId(req);
 
   clearHistory(req.sessionId, tenantId, clientId);
   res.json({ ok: true });
 });
 
 app.get('/bot-config.js', (req, res) => {
-  const tenantId = normalizeTenantId(req.query.tenant || FALLBACK_TENANT_ID);
+  const tenantId = resolveTenantId(req);
   const payload = {
     token: (process.env.BOT_PUBLIC_TOKEN || '').toString().trim(),
     tenantId,
@@ -905,7 +926,7 @@ app.get('/widget.js', (req, res) => {
 });
 
 app.get('/embed', (req, res) => {
-  const tenantId = normalizeTenantId(req.query.tenant || FALLBACK_TENANT_ID);
+  const tenantId = resolveTenantId(req);
   const token =
     (req.query.token || '').toString().trim() ||
     (process.env.BOT_PUBLIC_TOKEN || '').toString().trim();
