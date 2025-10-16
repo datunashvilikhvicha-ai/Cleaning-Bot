@@ -324,17 +324,20 @@ app.get('/admin/leads', async (req, res) => {
 
 // Chat endpoint with SSE streaming + watchdog + fallback
 app.post('/chat', async (req, res) => {
-  const token = (req.headers['x-public-token'] || '').toString().trim();
-  console.log('Frontend token:', token);
-  console.log('Server BOT_PUBLIC_TOKEN:', process.env.BOT_PUBLIC_TOKEN);
-  if (token !== process.env.BOT_PUBLIC_TOKEN) {
-    const legacyToken = (req.headers['x-bot-token'] || '').toString().trim();
-    if (legacyToken === process.env.BOT_PUBLIC_TOKEN) {
-      console.warn('⚠️ Legacy x-bot-token header accepted');
-    } else {
-      console.error('❌ Unauthorized token mismatch');
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
+  const incomingToken = (
+    req.headers['x-bot-token'] ||
+    req.headers['x-public-token'] ||
+    ''
+  )
+    .toString()
+    .trim();
+  const serverToken = (process.env.BOT_PUBLIC_TOKEN || '').toString().trim();
+  console.log('Incoming token (normalized):', incomingToken);
+  console.log('Server token (normalized):', serverToken);
+
+  if (incomingToken !== serverToken) {
+    console.error('❌ Token mismatch after trim');
+    return res.status(401).json({ error: 'Unauthorized token mismatch' });
   }
 
   const tenantId = normalizeTenantId(
