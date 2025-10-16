@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Cleaning Concierge</title>
+    <title>Neuro X Assistant</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
@@ -11,37 +11,38 @@
       <div class="card">
         <header class="header">
           <div class="title">
-            <div class="avatar">🧼</div>
+            <div class="avatar">🧠</div>
             <div class="copy">
-              <h1>Neuro Clean Concierge</h1>
-              <p>Smart help for quotes, bookings, and policies.</p>
+              <h1>Neuro X Digital Concierge</h1>
+              <p>Ask about products, services, projects, or getting in touch.</p>
             </div>
           </div>
           <div class="badges">
             <span class="badge" id="api-status">Checking API…</span>
             <button class="badge badge--action" id="new-chat" type="button">＋ New chat</button>
-            <span class="badge badge--muted">24/7 virtual specialist</span>
+            <span class="badge badge--muted">Built for Neuro X</span>
           </div>
         </header>
 
         <section class="actions">
-          <button class="action" data-prompt="I need a price estimate.">Get a Quote</button>
-          <button class="action" data-prompt="I'd like to book a time this week.">Book a Time</button>
-          <button class="action" data-prompt="What are your prices?">Pricing</button>
-          <button class="action" data-prompt="Show your policies.">Policies</button>
-          <button class="action" data-prompt="Connect me to a human agent.">Talk to an Agent</button>
+          <button class="action" data-prompt="What does Neuro X build?">Services</button>
+          <button class="action" data-prompt="Show me some recent projects.">Projects</button>
+          <button class="action" data-prompt="How can I partner with Neuro X?">Partnerships</button>
+          <button class="action" data-prompt="How do I contact the team?">Contact</button>
+          <button class="action" data-prompt="Do you build AI tools?">AI tools</button>
         </section>
 
         <section id="chat" class="chat"></section>
 
         <footer class="footer">
-          <input id="message" class="input" placeholder="Ask about pricing, bookings..." />
+          <input id="message" class="input" placeholder="Ask about services, projects, or next steps..." />
           <button id="stop" class="button button--ghost" hidden>Stop</button>
           <button id="send" class="button">Send</button>
         </footer>
       </div>
     </div>
 
+    <script src="/bot-config.js"></script>
     <script type="module" src="/main.js"></script>
   </body>
 </html>

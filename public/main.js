@@ -1,6 +1,10 @@
 const widgetConfig = window.CLEANING_BOT_CONFIG || {};
 const TENANT_ID = (widgetConfig.tenantId || 'neurox').toLowerCase();
 const BOT_PUBLIC_TOKEN = widgetConfig.token || '';
+const isNeuroxTenant = TENANT_ID === 'neurox';
+const INITIAL_BOT_GREETING = isNeuroxTenant
+  ? "Hey! I'm the Neuro X AI assistant. Curious about our tech, projects, or how we can help?"
+  : 'Hi there! How can I help with your cleaning today?';
 
 const chat = document.getElementById('chat');
 const input = document.getElementById('message');
@@ -10,7 +14,7 @@ const newChatBtn = document.getElementById('new-chat');
 const statusBadge = document.getElementById('api-status');
 const quickActions = Array.from(document.querySelectorAll('.action'));
 
-const CLIENT_STORAGE_KEY = `neuro-clean-client-id-${TENANT_ID}`;
+const CLIENT_STORAGE_KEY = `tenant-client-id-${TENANT_ID}`;
 
 let abortController = null;
 let isStreaming = false;
@@ -369,7 +373,7 @@ if (newChatBtn) {
       console.error('Failed to reset session', error);
     }
     chat.innerHTML = '';
-    addMessage('bot', 'Hi there! How can I help with your cleaning today?');
+    addMessage('bot', INITIAL_BOT_GREETING);
     input.value = '';
     input.focus();
   });
@@ -395,4 +399,4 @@ async function updateApiStatus() {
 
 updateApiStatus();
 
-addMessage('bot', 'Hi there! How can I help with your cleaning today?');
+addMessage('bot', INITIAL_BOT_GREETING);

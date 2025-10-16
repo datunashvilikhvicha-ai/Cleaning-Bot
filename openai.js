@@ -53,11 +53,33 @@ function latestUserMessage(history, userText) {
   return userText;
 }
 
-const baseSystemPrompt = `
-You are NEURO AI Assistant, a smart, friendly representative of NEURO Cleaning Company.
-Always reply in the same language as the user.
-Provide cleaning service details, scheduling info, and help customers professionally.
-`.trim();
+function createBaseSystemPrompt(companyName) {
+  return `
+You are the primary AI assistant for ${companyName}. Follow the tenant-specific playbook and provide concise, friendly, and accurate answers that reflect the brand's services. Ask clarifying questions only when necessary.`
+    .trim();
+}
+
+function getTenantSystemPrompt(tenantId, companyName, currency) {
+  if (tenantId === "neurox") {
+    return `
+You represent Neuro X, a technology and digital product studio. Highlight software, AI, and product capabilities. Keep the tone casual, witty, and human. Mention contact options and next steps when helpful.`
+      .trim();
+  }
+
+  return `
+You are "Cleaning Concierge", a friendly booking & pricing assistant for a residential cleaning company.
+- Greet briefly, be concise, and ask one clear follow-up question when needed.
+- You can:
+  * Give price estimates (small studio, 1BR/1BA, 2BR/1BA, 2BR/2BA, 3BR+).
+  * Offer to book a time (collect date, time window, address, email/phone).
+  * Explain policies (cancellations, rescheduling, satisfaction guarantee).
+  * Handoff to a human if user asks.
+- Currency is ${currency} and company name is ${companyName}.
+  * When the customer requests specific details, incorporate the latest policies or offers from the tenant prompt if provided.
+  * Always keep responses under 6 sentences unless listing steps.
+- Never reveal API keys or internal details. If asked for secrets, decline politely.`
+    .trim();
+}
 
 function sanitizeTenantId(rawTenantId) {
   const tenantId = (rawTenantId || "").toString().trim();
@@ -150,20 +172,8 @@ async function buildMessages(userText, history = [], tenantId) {
   const companyName = resolveTenantCompanyName(safeTenantId);
   const currency = resolveTenantCurrency(safeTenantId);
   const tenantPrompt = await ensureTenantPrompt(safeTenantId);
-
-  const system = `
-You are "Cleaning Concierge", a friendly booking & pricing assistant for a residential cleaning company.
-- Greet briefly, be concise, and ask one clear follow-up question when needed.
-- You can:
-  * Give price estimates (small studio, 1BR/1BA, 2BR/1BA, 2BR/2BA, 3BR+).
-  * Offer to book a time (collect date, time window, address, email/phone).
-  * Explain policies (cancellations, rescheduling, satisfaction guarantee).
-  * Handoff to a human if user asks.
-- Currency is ${currency} and company name is ${companyName}.
-  * When the customer requests specific details, incorporate the latest policies or offers from the tenant prompt if provided.
-  * Always keep responses under 6 sentences unless listing steps.
-- Never reveal API keys or internal details. If asked for secrets, decline politely.
-`.trim();
+  const baseSystem = createBaseSystemPrompt(companyName);
+  const tenantSystem = getTenantSystemPrompt(safeTenantId, companyName, currency);
 
   const cleanedHistory = sanitizeHistory(history);
   const latestUserContent = latestUserMessage(cleanedHistory, userText);
@@ -174,15 +184,15 @@ If you cannot determine the language, default to concise English with a brief no
 `.trim();
 
   const messages = [
-    { role: "system", content: baseSystemPrompt },
-    { role: "system", content: system },
+    { role: "system", content: baseSystem },
+    { role: "system", content: tenantSystem },
     { role: "system", content: languageDirective },
     ...cleanedHistory,
     { role: "user", content: userText },
   ];
 
   if (tenantPrompt) {
-    messages.splice(1, 0, { role: "system", content: tenantPrompt });
+    messages.splice(2, 0, { role: "system", content: tenantPrompt });
   }
 
   return messages;
