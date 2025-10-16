@@ -168,8 +168,16 @@ function ensureSession(req, res, next) {
 
 app.use(ensureSession);
 
-// Static UI
-app.use(express.static(path.join(__dirname, 'public')));
+// Static UI (disable caching to ensure fresh assets after deploy)
+app.use(
+  express.static(path.join(__dirname, 'public'), {
+    setHeaders(res) {
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+    },
+  }),
+);
 
 function getClientId(req) {
   const clientId = (req.headers['x-client-id'] || '').toString().trim();
