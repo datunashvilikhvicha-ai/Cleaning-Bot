@@ -1,21 +1,24 @@
 :root {
-  --page-bg: linear-gradient(180deg, #eef2ff 0%, #f8fafc 100%);
-  --card-bg: rgba(255, 255, 255, 0.95);
-  --card-border: rgba(148, 163, 184, 0.25);
-  --header-gradient: linear-gradient(135deg, #1f3fff 0%, #6366f1 55%, #3b82f6 100%);
-  --text-strong: #0f172a;
-  --text-subtle: #475569;
-  --accent: #1e40ff;
-  --accent-strong: #1d4ed8;
-  --accent-soft: rgba(30, 64, 255, 0.08);
-  --bot-bg: #f3f4f6;
-  --bot-text: #111827;
-  --user-bg: #1e40ff;
+  --page-bg: radial-gradient(circle at top right, rgba(59, 130, 246, 0.32), transparent 45%),
+    radial-gradient(circle at 10% 20%, rgba(147, 51, 234, 0.38), transparent 50%),
+    #0b1220;
+  --card-bg: rgba(12, 18, 32, 0.72);
+  --card-border: rgba(148, 163, 184, 0.18);
+  --card-glow: 0 30px 80px rgba(15, 23, 42, 0.45);
+  --header-gradient: linear-gradient(135deg, rgba(59, 130, 246, 0.32), rgba(14, 165, 233, 0.18));
+  --text-strong: #f8fafc;
+  --text-subtle: rgba(226, 232, 240, 0.7);
+  --accent: #0ea5e9;
+  --accent-strong: #38bdf8;
+  --accent-soft: rgba(14, 165, 233, 0.18);
+  --bot-bg: rgba(241, 245, 249, 0.15);
+  --bot-text: #e2e8f0;
+  --user-bg: linear-gradient(135deg, #1e40ff, #38bdf8);
   --user-text: #ffffff;
-  --input-bg: #ffffff;
-  --input-border: rgba(148, 163, 184, 0.45);
-  --shadow: 0 32px 80px rgba(15, 23, 42, 0.12);
-  --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  --input-bg: rgba(15, 23, 42, 0.8);
+  --input-border: rgba(148, 163, 184, 0.35);
+  --shadow: 0 35px 85px rgba(8, 15, 31, 0.58);
+  --transition: 0.24s cubic-bezier(0.4, 0, 0.2, 1);
   --font: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
@@ -31,6 +34,7 @@ body {
   justify-content: center;
   padding: 32px 16px;
   background: var(--page-bg);
+  background-attachment: fixed;
   font-family: var(--font);
   color: var(--text-strong);
 }
@@ -50,21 +54,46 @@ button {
   width: 100%;
   display: flex;
   flex-direction: column;
-  border-radius: 24px;
+  border-radius: 28px;
   border: 1px solid var(--card-border);
   background: var(--card-bg);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(24px);
   overflow: hidden;
+  position: relative;
+  isolation: isolate;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(148, 163, 184, 0.08), transparent 40%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .header {
-  padding: 28px 32px;
+  padding: 28px 32px 24px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   background: var(--header-gradient);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
   color: #f8fafc;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  inset: -40% -20% auto -10%;
+  height: 140%;
+  background: radial-gradient(circle at top, rgba(59, 130, 246, 0.4), transparent 65%);
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 .header-content {
@@ -74,14 +103,14 @@ button {
 }
 
 .header-icon {
-  width: 54px;
-  height: 54px;
+  width: 58px;
+  height: 58px;
   border-radius: 18px;
   background: rgba(248, 250, 252, 0.16);
   display: grid;
   place-items: center;
   font-size: 26px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 12px 28px rgba(14, 165, 233, 0.32);
 }
 
 .header-copy h1 {
@@ -111,10 +140,11 @@ button {
   border-radius: 999px;
   font-size: 13px;
   font-weight: 600;
-  background: rgba(248, 250, 252, 0.16);
-  color: #f8fafc;
-  border: 1px solid rgba(248, 250, 252, 0.24);
+  background: rgba(15, 23, 42, 0.32);
+  color: rgba(226, 232, 240, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.28);
   transition: var(--transition);
+  backdrop-filter: blur(12px);
 }
 
 .badge::before {
@@ -122,14 +152,14 @@ button {
   width: 6px;
   height: 6px;
   border-radius: 999px;
-  background: rgba(190, 242, 100, 0.9);
-  box-shadow: 0 0 0 4px rgba(190, 242, 100, 0.25);
+  background: rgba(56, 189, 248, 0.9);
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.24);
 }
 
 .badge--muted {
-  background: rgba(248, 250, 252, 0.12);
-  border-color: rgba(148, 163, 184, 0.35);
-  color: rgba(241, 245, 249, 0.86);
+  background: rgba(248, 250, 252, 0.08);
+  border-color: rgba(148, 163, 184, 0.25);
+  color: rgba(226, 232, 240, 0.78);
 }
 
 .badge--muted::before {
@@ -139,9 +169,9 @@ button {
 
 .badge--action {
   cursor: pointer;
-  background: rgba(248, 250, 252, 0.22);
-  border-color: rgba(248, 250, 252, 0.32);
-  color: #ffffff;
+  background: rgba(14, 165, 233, 0.18);
+  border-color: rgba(56, 189, 248, 0.35);
+  color: rgba(240, 249, 255, 0.95);
 }
 
 .badge--action:hover {
@@ -155,8 +185,8 @@ button {
 }
 
 .badge--error {
-  background: rgba(248, 113, 113, 0.18);
-  border-color: rgba(239, 68, 68, 0.32);
+  background: rgba(248, 113, 113, 0.25);
+  border-color: rgba(239, 68, 68, 0.45);
   color: #fee2e2;
 }
 
@@ -169,29 +199,29 @@ button {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  padding: 18px 28px;
-  background: rgba(15, 23, 42, 0.03);
+  padding: 22px 28px;
+  background: rgba(15, 23, 42, 0.35);
   border-bottom: 1px solid rgba(148, 163, 184, 0.18);
 }
 
 .action {
   padding: 10px 18px;
   border-radius: 999px;
-  border: 1px solid rgba(30, 64, 255, 0.12);
-  background: var(--accent-soft);
-  color: var(--accent-strong);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  background: rgba(14, 165, 233, 0.15);
+  color: rgba(224, 242, 254, 0.92);
   font-weight: 600;
   font-size: 13px;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
   cursor: pointer;
   transition: var(--transition);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 .action:hover {
   transform: translateY(-2px);
-  background: rgba(30, 64, 255, 0.14);
-  box-shadow: 0 12px 24px rgba(30, 64, 255, 0.12);
+  background: rgba(56, 189, 248, 0.22);
+  box-shadow: 0 18px 36px rgba(14, 165, 233, 0.28);
 }
 
 .action:disabled {
@@ -207,45 +237,58 @@ button {
   padding: 28px 30px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  background: #f9fafb;
+  gap: 18px;
+  background: rgba(15, 23, 42, 0.75);
   border-bottom: 1px solid rgba(148, 163, 184, 0.18);
   scroll-behavior: smooth;
+}
+
+.chat::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 18% 22%, rgba(56, 189, 248, 0.28), transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(147, 51, 234, 0.24), transparent 50%);
+  opacity: 0.35;
 }
 
 .msg {
   position: relative;
   max-width: 85%;
-  padding: 12px 16px;
-  border-radius: 16px;
-  line-height: 1.5;
+  padding: 13px 17px;
+  border-radius: 18px;
+  line-height: 1.55;
   font-size: 15px;
   white-space: pre-wrap;
   word-break: break-word;
-  animation: message-fade 0.35s ease;
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+  animation: message-fade 0.4s ease;
+  box-shadow: 0 16px 38px rgba(8, 15, 31, 0.32);
+  backdrop-filter: blur(10px);
 }
 
 .msg.bot {
   align-self: flex-start;
   background: var(--bot-bg);
   color: var(--bot-text);
+  border: 1px solid rgba(148, 163, 184, 0.24);
 }
 
 .msg.user {
   align-self: flex-end;
   background: var(--user-bg);
   color: var(--user-text);
-  box-shadow: 0 14px 34px rgba(30, 64, 255, 0.25);
+  box-shadow: 0 18px 40px rgba(30, 64, 255, 0.35);
 }
 
 .msg.typing {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  background: rgba(30, 64, 255, 0.08);
+  background: rgba(56, 189, 248, 0.12);
   color: var(--accent-strong);
   box-shadow: none;
+  border: 1px dashed rgba(56, 189, 248, 0.32);
 }
 
 .typing-label {
@@ -262,7 +305,7 @@ button {
   width: 6px;
   height: 6px;
   border-radius: 999px;
-  background: rgba(30, 64, 255, 0.45);
+  background: rgba(56, 189, 248, 0.6);
   animation: typing-dot 1s ease-in-out infinite;
 }
 
@@ -277,9 +320,10 @@ button {
 .footer {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 20px 28px 24px;
-  background: rgba(15, 23, 42, 0.02);
+  gap: 14px;
+  padding: 22px 28px 28px;
+  background: rgba(10, 15, 25, 0.85);
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 .input {
@@ -287,21 +331,21 @@ button {
   border-radius: 18px;
   border: 1px solid var(--input-border);
   background: var(--input-bg);
-  color: #111827;
+  color: #f8fafc;
   padding: 14px 18px;
   font-size: 15px;
   outline: none;
   transition: var(--transition);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 12px 24px rgba(15, 23, 42, 0.28);
 }
 
 .input::placeholder {
-  color: rgba(148, 163, 184, 0.7);
+  color: rgba(148, 163, 184, 0.6);
 }
 
 .input:focus {
-  border-color: rgba(30, 64, 255, 0.35);
-  box-shadow: 0 0 0 3px rgba(30, 64, 255, 0.12);
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 .button {
@@ -320,30 +364,31 @@ button {
   padding: 12px 18px;
   font-size: 14px;
   font-weight: 600;
-  background: rgba(15, 23, 42, 0.05);
-  color: var(--accent-strong);
-  border: 1px solid rgba(30, 64, 255, 0.12);
-  box-shadow: none;
+  background: rgba(12, 18, 32, 0.6);
+  color: rgba(248, 250, 252, 0.82);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .button--ghost:hover:not(:disabled) {
-  background: rgba(30, 64, 255, 0.1);
+  background: rgba(12, 18, 32, 0.78);
 }
 
 .button--primary {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   display: grid;
   place-items: center;
   border-radius: 999px;
-  background: linear-gradient(135deg, #1e40ff, #6366f1);
+  background: linear-gradient(140deg, #1d4ed8, #38bdf8);
   color: #ffffff;
-  box-shadow: 0 12px 30px rgba(30, 64, 255, 0.3);
+  box-shadow: 0 20px 38px rgba(14, 165, 233, 0.45);
+  border: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 .button--primary:hover:not(:disabled) {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 16px 36px rgba(30, 64, 255, 0.32);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 24px 48px rgba(14, 165, 233, 0.5);
 }
 
 .send-icon {
@@ -410,11 +455,11 @@ button {
   }
 
   .header {
-    padding: 24px 22px;
+    padding: 24px 22px 20px;
   }
 
   .actions {
-    padding: 16px 20px;
+    padding: 18px 20px;
   }
 
   .chat {
@@ -423,6 +468,6 @@ button {
   }
 
   .footer {
-    padding: 18px 20px 22px;
+    padding: 20px 20px 24px;
   }
 }
