@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 import { franc } from 'franc';
 import { streamBotResponse, askBot, loadTenantPrompts } from './openai.js';
 import { createLeadsStore } from './lib/leadsStore.js';
+import { readFile } from 'fs/promises';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -41,6 +42,8 @@ if (!loadedTenants.length) {
 } else {
   console.log(`✅ Tenant prompts initialized (${loadedTenants.length})`);
 }
+
+const widgetTemplate = await readFile(new URL('./public/widget.js', import.meta.url), 'utf8');
 
 function normalizeTenantId(rawTenantId) {
   const tenantId = (rawTenantId || '').toString().trim();
@@ -687,250 +690,11 @@ app.get('/bot-config.js', (req, res) => {
 });
 
 app.get('/widget.js', (req, res) => {
-  const fallbackTenant = JSON.stringify(FALLBACK_TENANT_ID);
-  const widgetJs = String.raw`(function () {
-  var scriptEl = document.currentScript;
-  if (!scriptEl) {
-    console.error('[cleaning-bot] widget: unable to locate current script element.');
-    return;
-  }
-
-  var dataset = scriptEl.dataset || {};
-  var tenantId = (dataset.tenant || '').toLowerCase() || ${fallbackTenant};
-  var token = dataset.token || '';
-  var apiBase = dataset.base || (function () {
-    try {
-      return new URL(scriptEl.src, window.location.href).origin;
-    } catch (error) {
-      console.warn('[cleaning-bot] widget: failed to derive API base URL.', error);
-      return '';
-    }
-  })();
-
-  if (!token) {
-    console.error('[cleaning-bot] widget: missing data-token attribute.');
-    return;
-  }
-
-  if (!apiBase) {
-    console.error('[cleaning-bot] widget: unable to resolve API base URL.');
-    return;
-  }
-
-  var apiUrl = apiBase.replace(/\/$/, '') + '/chat';
-  var clientStorageKey = 'cleaning-bot-client-' + tenantId;
-  var clientId = null;
-  try {
-    clientId = localStorage.getItem(clientStorageKey);
-  } catch (error) {
-    console.warn('[cleaning-bot] widget: unable to access localStorage.', error);
-  }
-  if (!clientId) {
-    var generated = typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : 'cbw-' + Date.now() + '-' + Math.random().toString(16).slice(2);
-    clientId = generated;
-    try {
-      localStorage.setItem(clientStorageKey, clientId);
-    } catch (error) {
-      /* ignore write failures */
-    }
-  }
-
-  var styleId = 'cleaning-bot-widget-style';
-  if (!document.getElementById(styleId)) {
-    var style = document.createElement('style');
-    style.id = styleId;
-    style.textContent =
-      '.cbw-container{position:fixed;z-index:2147483000;font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#0f172a;}' +
-      '.cbw-container[data-position="right"]{right:24px;bottom:24px;}' +
-      '.cbw-container[data-position="left"]{left:24px;bottom:24px;}' +
-      '.cbw-button{all:unset;display:flex;align-items:center;justify-content:center;gap:10px;background:#2563eb;color:#fff;padding:14px 18px;border-radius:999px;box-shadow:0 12px 32px rgba(37,99,235,0.4);cursor:pointer;font-weight:600;transition:transform 0.2s ease,box-shadow 0.2s ease;}' +
-      '.cbw-button:hover{transform:translateY(-1px);box-shadow:0 16px 36px rgba(37,99,235,0.45);}' +
-      '.cbw-button-icon{display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:999px;background:rgba(255,255,255,0.2);font-size:16px;}' +
-      '.cbw-panel{display:none;flex-direction:column;width:360px;height:520px;background:#fff;border-radius:18px;box-shadow:0 24px 48px rgba(15,23,42,0.2);overflow:hidden;}' +
-      '.cbw-open .cbw-panel{display:flex;}' +
-      '.cbw-open .cbw-button{display:none;}' +
-      '.cbw-header{padding:16px 18px;background:linear-gradient(135deg,#2563eb,#1e40af);color:#fff;display:flex;align-items:center;justify-content:space-between;}' +
-      '.cbw-header-title{font-size:16px;font-weight:600;margin:0;}' +
-      '.cbw-header-subtitle{margin:4px 0 0;font-size:13px;opacity:0.8;}' +
-      '.cbw-close{all:unset;font-size:18px;cursor:pointer;color:rgba(255,255,255,0.85);padding:4px;}' +
-      '.cbw-messages{flex:1;padding:18px;background:#f8fafc;overflow-y:auto;display:flex;flex-direction:column;gap:12px;}' +
-      '.cbw-message{padding:10px 14px;border-radius:14px;line-height:1.4;max-width:85%;box-shadow:0 8px 20px rgba(15,23,42,0.08);white-space:pre-wrap;word-break:break-word;font-size:14px;}' +
-      '.cbw-message.cbw-user{align-self:flex-end;background:#2563eb;color:#fff;border-bottom-right-radius:6px;}' +
-      '.cbw-message.cbw-bot{align-self:flex-start;background:#fff;color:#0f172a;border-bottom-left-radius:6px;}' +
-      '.cbw-message.cbw-error{background:#fee2e2;color:#991b1b;}' +
-      '.cbw-input{display:flex;gap:10px;padding:14px 16px;background:#fff;border-top:1px solid #e2e8f0;}' +
-      '.cbw-input input{flex:1;padding:12px 14px;border-radius:999px;border:1px solid #cbd5f5;font-size:14px;outline:none;}' +
-      '.cbw-input input:focus{border-color:#2563eb;}' +
-      '.cbw-input button{all:unset;padding:12px 18px;border-radius:999px;background:#2563eb;color:#fff;font-weight:600;cursor:pointer;transition:background 0.2s ease;}' +
-      '.cbw-input button:hover{background:#1e40af;}' +
-      '.cbw-input button[disabled]{opacity:0.65;cursor:not-allowed;}' +
-      '.cbw-typing{display:flex;align-items:center;gap:8px;font-size:13px;color:#475569;}' +
-      '.cbw-typing-dot{width:6px;height:6px;border-radius:50%;background:#94a3b8;animation:cbw-bounce 1s infinite;}' +
-      '.cbw-typing-dot:nth-child(2){animation-delay:0.15s;}' +
-      '.cbw-typing-dot:nth-child(3){animation-delay:0.3s;}' +
-      '@keyframes cbw-bounce{0%,80%,100%{transform:scale(0);}40%{transform:scale(1);}}';
-    document.head.appendChild(style);
-  }
-
-  function appendMessage(list, role, text, extraClass) {
-    var msg = document.createElement('div');
-    var roleClass = role === 'user' ? 'cbw-user' : 'cbw-bot';
-    msg.className = 'cbw-message ' + roleClass + (extraClass ? ' ' + extraClass : '');
-    msg.textContent = text;
-    list.appendChild(msg);
-    list.scrollTop = list.scrollHeight;
-    return msg;
-  }
-
-  function createTypingBubble(list) {
-    var bubble = document.createElement('div');
-    bubble.className = 'cbw-message cbw-bot cbw-typing';
-    var dotsWrapper = document.createElement('div');
-    dotsWrapper.style.display = 'inline-flex';
-    dotsWrapper.style.gap = '4px';
-    for (var i = 0; i < 3; i += 1) {
-      var dot = document.createElement('span');
-      dot.className = 'cbw-typing-dot';
-      dotsWrapper.appendChild(dot);
-    }
-    bubble.appendChild(document.createTextNode('Thinking'));
-    bubble.appendChild(dotsWrapper);
-    list.appendChild(bubble);
-    list.scrollTop = list.scrollHeight;
-    return bubble;
-  }
-
-  function init() {
-    var container = document.createElement('div');
-    container.className = 'cbw-container cbw-collapsed';
-    container.dataset.position = dataset.position === 'left' ? 'left' : 'right';
-
-    var button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'cbw-button';
-    button.innerHTML = '<span class="cbw-button-icon">💬</span><span class="cbw-button-label">Chat with us</span>';
-    button.addEventListener('click', function () {
-      container.classList.add('cbw-open');
-      messages.scrollTop = messages.scrollHeight;
-      input.focus();
-    });
-
-    var panel = document.createElement('div');
-    panel.className = 'cbw-panel';
-
-    var header = document.createElement('header');
-    header.className = 'cbw-header';
-
-    var headerText = document.createElement('div');
-    headerText.innerHTML = '<p class="cbw-header-title">Need a hand?</p><p class="cbw-header-subtitle">We reply in seconds.</p>';
-
-    var close = document.createElement('button');
-    close.type = 'button';
-    close.className = 'cbw-close';
-    close.setAttribute('aria-label', 'Close chat');
-    close.innerHTML = '×';
-    close.addEventListener('click', function () {
-      container.classList.remove('cbw-open');
-    });
-
-    header.appendChild(headerText);
-    header.appendChild(close);
-
-    var messages = document.createElement('div');
-    messages.className = 'cbw-messages';
-    appendMessage(messages, 'bot', 'Hi there! How can we help today?');
-
-    var form = document.createElement('form');
-    form.className = 'cbw-input';
-
-    var input = document.createElement('input');
-    input.type = 'text';
-    input.placeholder = dataset.placeholder || 'Ask about services, pricing, booking…';
-
-    var send = document.createElement('button');
-    send.type = 'submit';
-    send.textContent = 'Send';
-
-    form.appendChild(input);
-    form.appendChild(send);
-
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      if (!input.value.trim()) {
-        return;
-      }
-      if (send.disabled) {
-        return;
-      }
-      var question = input.value.trim();
-      input.value = '';
-      appendMessage(messages, 'user', question);
-      send.disabled = true;
-      input.disabled = true;
-      var typingBubble = createTypingBubble(messages);
-
-      fetch(apiUrl, {
-        method: 'POST',
-        mode: 'cors',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          'X-Stream-Mode': 'json',
-          'X-Client-ID': clientId,
-          'X-Tenant-ID': tenantId,
-          'X-Bot-Token': token,
-          'X-Public-Token': token
-        },
-        body: JSON.stringify({ message: question })
-      })
-        .then(function (response) {
-          return response.json().then(function (payload) {
-            return { ok: response.ok, payload: payload };
-          });
-        })
-        .then(function (result) {
-          var ok = result.ok;
-          var payload = result.payload || {};
-          var reply = (payload.reply || payload.details || '').trim();
-          if (!ok) {
-            throw new Error(reply || 'Unexpected error');
-          }
-          typingBubble.textContent = reply || 'We are here if you need anything else.';
-          typingBubble.classList.remove('cbw-typing');
-        })
-        .catch(function (error) {
-          typingBubble.textContent = 'Sorry, something went wrong. Please try again.';
-          typingBubble.classList.remove('cbw-typing');
-          typingBubble.classList.add('cbw-error');
-          console.error('[cleaning-bot] widget request failed:', error);
-        })
-        .finally(function () {
-          send.disabled = false;
-          input.disabled = false;
-          input.focus();
-        });
-    });
-
-    panel.appendChild(header);
-    panel.appendChild(messages);
-    panel.appendChild(form);
-
-    container.appendChild(button);
-    container.appendChild(panel);
-    document.body.appendChild(container);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();`;
-
+  const fallbackTenantLiteral = JSON.stringify(FALLBACK_TENANT_ID);
+  const payload = widgetTemplate.replace(/"__FALLBACK_TENANT__"/g, fallbackTenantLiteral);
   res.setHeader('Content-Type', 'application/javascript');
   res.setHeader('Cache-Control', 'public, max-age=600');
-  res.send(widgetJs);
+  res.send(payload);
 });
 
 app.get('/embed', (req, res) => {
