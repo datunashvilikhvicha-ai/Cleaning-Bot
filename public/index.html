@@ -10,11 +10,11 @@
     <div class="page">
       <div class="card">
         <header class="header">
-          <div class="title">
-            <div class="avatar">🧠</div>
-            <div class="copy">
-              <h1>Neuro X Digital Concierge</h1>
-              <p>Ask about products, services, projects, or getting in touch.</p>
+          <div class="header-content">
+            <div class="header-icon" aria-hidden="true">💬</div>
+            <div class="header-copy">
+              <h1>Chat with Neuro X Assistant</h1>
+              <p>Instant answers about products, services, and partnerships.</p>
             </div>
           </div>
           <div class="badges">
@@ -35,9 +35,16 @@
         <section id="chat" class="chat"></section>
 
         <footer class="footer">
-          <input id="message" class="input" placeholder="Ask about services, projects, or next steps..." />
+          <input
+            id="message"
+            class="input"
+            placeholder="Ask about services, projects, or next steps..."
+            autocomplete="off"
+          />
           <button id="stop" class="button button--ghost" hidden>Stop</button>
-          <button id="send" class="button">Send</button>
+          <button id="send" class="button button--primary" type="button" aria-label="Send message">
+            <span class="send-icon" aria-hidden="true">➤</span>
+          </button>
         </footer>
       </div>
     </div>

@@ -33,12 +33,22 @@ function ensureClientId() {
 
 const clientId = ensureClientId();
 
+function scrollToBottom(smooth = true) {
+  if (!chat) return;
+  const behavior = smooth ? 'smooth' : 'auto';
+  try {
+    chat.scrollTo({ top: chat.scrollHeight, behavior });
+  } catch (_error) {
+    chat.scrollTop = chat.scrollHeight;
+  }
+}
+
 function addMessage(role, text, extraClass = '') {
   const bubble = document.createElement('div');
   bubble.className = `msg ${role}${extraClass ? ` ${extraClass}` : ''}`;
   bubble.textContent = text;
   chat.appendChild(bubble);
-  chat.scrollTop = chat.scrollHeight;
+  requestAnimationFrame(() => scrollToBottom(true));
   return bubble;
 }
 
@@ -52,7 +62,7 @@ function createTypingBubble() {
     </span>
   `;
   chat.appendChild(bubble);
-  chat.scrollTop = chat.scrollHeight;
+  scrollToBottom(true);
   return bubble;
 }
 
@@ -61,7 +71,8 @@ function addStatusChip() {}
 function setStreamingState(active) {
   isStreaming = active;
   sendBtn.disabled = active;
-  sendBtn.textContent = active ? 'Sending…' : 'Send';
+  sendBtn.setAttribute('aria-label', active ? 'Sending message' : 'Send message');
+  sendBtn.classList.toggle('button--loading', active);
   stopBtn.hidden = !active;
   stopBtn.disabled = !active;
   input.readOnly = active;
@@ -185,11 +196,13 @@ async function sendMessage(text) {
   const appendToken = (token) => {
     const node = ensureContentNode();
     node.textContent += token;
+    scrollToBottom(true);
   };
 
   const setText = (value) => {
     const node = ensureContentNode();
     node.textContent = value;
+    scrollToBottom(true);
   };
 
   const finish = () => {
