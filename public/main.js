@@ -6,13 +6,17 @@ const INITIAL_BOT_GREETING = isNeuroxTenant
   ? "Hey! I'm the Neuro X AI assistant. Curious about our tech, projects, or how we can help?"
   : 'Hi there! How can I help with your cleaning today?';
 
+const chatShell = document.getElementById('chat-shell');
+const chatWindow = document.getElementById('chat-window');
+const chatLauncher = document.getElementById('chat-launcher');
+const chatCloseBtn = document.getElementById('chat-close');
 const chat = document.getElementById('chat');
 const input = document.getElementById('message');
 const sendBtn = document.getElementById('send');
 const stopBtn = document.getElementById('stop');
 const newChatBtn = document.getElementById('new-chat');
 const statusBadge = document.getElementById('api-status');
-const quickActions = Array.from(document.querySelectorAll('.action'));
+const quickActions = Array.from(document.querySelectorAll('[data-chat-prompt]'));
 
 const CLIENT_STORAGE_KEY = `tenant-client-id-${TENANT_ID}`;
 
@@ -33,6 +37,36 @@ function ensureClientId() {
 
 const clientId = ensureClientId();
 
+function isChatOpen() {
+  return Boolean(chatShell?.classList.contains('chat-shell--open'));
+}
+
+function openChat() {
+  if (!chatShell) return;
+  if (isChatOpen()) return;
+  chatShell.classList.add('chat-shell--open');
+  chatShell.setAttribute('aria-hidden', 'false');
+  chatLauncher?.classList.add('chat-launcher--active');
+  chatLauncher?.setAttribute('aria-expanded', 'true');
+  requestAnimationFrame(() => {
+    scrollToBottom(false);
+    setTimeout(() => input?.focus(), 180);
+  });
+}
+
+function closeChat() {
+  if (!chatShell) return;
+  if (!isChatOpen()) return;
+  chatShell.classList.remove('chat-shell--open');
+  chatShell.setAttribute('aria-hidden', 'true');
+  chatLauncher?.classList.remove('chat-launcher--active');
+  chatLauncher?.setAttribute('aria-expanded', 'false');
+  if (isStreaming && abortController) {
+    abortController.abort('user_abort');
+  }
+  setStreamingState(false);
+}
+
 function scrollToBottom(smooth = true) {
   if (!chat) return;
   const behavior = smooth ? 'smooth' : 'auto';
@@ -44,6 +78,7 @@ function scrollToBottom(smooth = true) {
 }
 
 function addMessage(role, text, extraClass = '') {
+  if (!chat) return null;
   const bubble = document.createElement('div');
   bubble.className = `msg ${role}${extraClass ? ` ${extraClass}` : ''}`;
   bubble.textContent = text;
@@ -53,6 +88,7 @@ function addMessage(role, text, extraClass = '') {
 }
 
 function createTypingBubble() {
+  if (!chat) return null;
   const bubble = document.createElement('div');
   bubble.className = 'msg bot typing';
   bubble.innerHTML = `
@@ -66,16 +102,20 @@ function createTypingBubble() {
   return bubble;
 }
 
-function addStatusChip() {}
-
 function setStreamingState(active) {
   isStreaming = active;
-  sendBtn.disabled = active;
-  sendBtn.setAttribute('aria-label', active ? 'Sending message' : 'Send message');
-  sendBtn.classList.toggle('button--loading', active);
-  stopBtn.hidden = !active;
-  stopBtn.disabled = !active;
-  input.readOnly = active;
+  if (sendBtn) {
+    sendBtn.disabled = active;
+    sendBtn.setAttribute('aria-label', active ? 'Sending message' : 'Send message');
+    sendBtn.classList.toggle('button--loading', active);
+  }
+  if (stopBtn) {
+    stopBtn.hidden = !active;
+    stopBtn.disabled = !active;
+  }
+  if (input) {
+    input.readOnly = active;
+  }
   quickActions.forEach((btn) => {
     btn.disabled = active;
   });
@@ -159,7 +199,7 @@ async function runJsonFallback(message, typingBubble) {
 }
 
 async function sendMessage(text) {
-  if (isStreaming) return;
+  if (isStreaming || !input || !chat || !sendBtn) return;
   const message = text ?? input.value.trim();
   if (!message) return;
   if (!BOT_PUBLIC_TOKEN) {
@@ -170,6 +210,7 @@ async function sendMessage(text) {
     return;
   }
 
+  openChat();
   addMessage('user', message);
   input.value = '';
   input.focus();
@@ -273,28 +314,27 @@ async function sendMessage(text) {
       buffer = splitEvents(buffer + decoder.decode(value, { stream: true }), (event, payload) => {
         switch (event) {
           case 'start':
-            break;
           case 'heartbeat':
             break;
-        case 'token': {
-          const token = payload?.token ?? '';
-          if (!token) break;
-          sawToken = true;
-          clearClientWatchdog();
+          case 'token': {
+            const token = payload?.token ?? '';
+            if (!token) break;
+            sawToken = true;
+            clearClientWatchdog();
             appendToken(token);
             aggregated += token;
             break;
           }
           case 'done': {
             clearClientWatchdog();
-          const reply = (payload?.reply || '').trim();
-          if (!aggregated && reply) {
-            aggregated = reply;
-            setText(reply);
+            const reply = (payload?.reply || '').trim();
+            if (!aggregated && reply) {
+              aggregated = reply;
+              setText(reply);
+            }
+            finish();
+            break;
           }
-          finish();
-          break;
-        }
           case 'error': {
             clearClientWatchdog();
             const detail = payload?.details || payload?.error || 'Unexpected server error.';
@@ -302,19 +342,17 @@ async function sendMessage(text) {
             finish();
             break;
           }
-        case 'aborted': {
-          clearClientWatchdog();
-          const reason = payload?.reason || 'user_abort';
-          if (reason === 'user_abort') {
-            setText('Canceled.');
+          case 'aborted': {
+            clearClientWatchdog();
+            const reason = payload?.reason || 'user_abort';
+            if (reason === 'user_abort') {
+              setText('Canceled.');
+            } else if (reason !== 'client_watchdog') {
+              setText('Session ended.');
+            }
             finish();
-          } else if (reason === 'client_watchdog') {
-            // Client fallback already triggered.
-          } else {
-            finish();
+            break;
           }
-          break;
-        }
           default:
             break;
         }
@@ -343,15 +381,16 @@ async function sendMessage(text) {
   }
 }
 
-sendBtn.addEventListener('click', () => sendMessage());
-input.addEventListener('keydown', (event) => {
+sendBtn?.addEventListener('click', () => sendMessage());
+
+input?.addEventListener('keydown', (event) => {
   if (event.key === 'Enter' && !event.shiftKey) {
     event.preventDefault();
     sendMessage();
   }
 });
 
-stopBtn.addEventListener('click', () => {
+stopBtn?.addEventListener('click', () => {
   if (abortController) {
     abortController.abort('user_abort');
   }
@@ -359,7 +398,11 @@ stopBtn.addEventListener('click', () => {
 
 quickActions.forEach((btn) => {
   btn.addEventListener('click', () => {
-    sendMessage(btn.dataset.prompt);
+    const preset = btn.dataset.chatPrompt || btn.dataset.prompt;
+    if (preset) {
+      openChat();
+      sendMessage(preset);
+    }
   });
 });
 
@@ -367,9 +410,8 @@ if (newChatBtn) {
   newChatBtn.addEventListener('click', async () => {
     if (isStreaming && abortController) {
       abortController.abort('user_abort');
-    } else {
-      setStreamingState(false);
     }
+    setStreamingState(false);
     try {
       await fetch('/session/reset', {
         method: 'POST',
@@ -385,26 +427,52 @@ if (newChatBtn) {
     } catch (error) {
       console.error('Failed to reset session', error);
     }
-    chat.innerHTML = '';
-    addMessage('bot', INITIAL_BOT_GREETING);
+    if (chat) {
+      chat.innerHTML = '';
+      addMessage('bot', INITIAL_BOT_GREETING, 'msg--intro');
+    }
     input.value = '';
     input.focus();
   });
 }
+
+chatLauncher?.addEventListener('click', () => {
+  if (isChatOpen()) {
+    closeChat();
+  } else {
+    openChat();
+  }
+});
+
+chatCloseBtn?.addEventListener('click', () => {
+  closeChat();
+});
+
+chatShell?.addEventListener('click', (event) => {
+  if (event.target === chatShell) {
+    closeChat();
+  }
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && isChatOpen()) {
+    closeChat();
+  }
+});
 
 async function updateApiStatus() {
   if (!statusBadge) return;
   try {
     const res = await fetch('/health', { credentials: 'include' });
     if (res.ok) {
-      statusBadge.textContent = '✅ API connected';
+      statusBadge.textContent = 'Online';
       statusBadge.classList.remove('badge--error');
     } else {
-      statusBadge.textContent = '⚠️ API offline';
+      statusBadge.textContent = 'API offline';
       statusBadge.classList.add('badge--error');
     }
   } catch (error) {
-    statusBadge.textContent = '⚠️ Offline';
+    statusBadge.textContent = 'Offline';
     statusBadge.classList.add('badge--error');
     console.error('Health check failed:', error);
   }
@@ -412,4 +480,6 @@ async function updateApiStatus() {
 
 updateApiStatus();
 
-addMessage('bot', INITIAL_BOT_GREETING);
+if (chat) {
+  addMessage('bot', INITIAL_BOT_GREETING, 'msg--intro');
+}

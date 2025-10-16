@@ -2,53 +2,304 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Neuro X Assistant</title>
+    <title>Neuro X — Intelligent Chatbot Solutions for Businesses</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div class="page">
-      <div class="card">
-        <header class="header">
-          <div class="header-content">
-            <div class="header-icon" aria-hidden="true">💬</div>
-            <div class="header-copy">
-              <h1>Chat with Neuro X Assistant</h1>
-              <p>Instant answers about products, services, and partnerships.</p>
+    <div class="background-layers">
+      <div class="background-layers__orb background-layers__orb--one"></div>
+      <div class="background-layers__orb background-layers__orb--two"></div>
+      <div class="background-layers__orb background-layers__orb--three"></div>
+    </div>
+
+    <header class="site-header fade-in">
+      <div class="container site-header__inner">
+        <a class="brand" href="#hero">Neuro<span>X</span></a>
+        <nav class="nav">
+          <a href="#solutions">Solutions</a>
+          <a href="#capabilities">Capabilities</a>
+          <a href="#integrations">Integrations</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a class="btn btn--outline" href="#contact">Book a demo</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="hero">
+        <div class="container hero__inner">
+          <div class="hero__copy animate-up">
+            <p class="eyebrow">AI-first automation</p>
+            <h1>Neuro X — Intelligent Chatbot Solutions for Businesses.</h1>
+            <p class="subtitle">
+              We build AI assistants that talk, book, and sell for you. Delight customers, automate workflows, and
+              accelerate growth with conversations that feel human.
+            </p>
+            <div class="hero__actions">
+              <a class="btn btn--primary" href="#contact">Get Started</a>
+              <a class="btn btn--ghost" href="#solutions">See how it works</a>
+            </div>
+            <div class="hero__stats">
+              <div class="hero__stat">
+                <span class="hero__stat-value">1.2M+</span>
+                <span class="hero__stat-label">Customer conversations automated</span>
+              </div>
+              <div class="hero__stat">
+                <span class="hero__stat-value">40%</span>
+                <span class="hero__stat-label">Avg. increase in lead conversion</span>
+              </div>
+              <div class="hero__stat">
+                <span class="hero__stat-value">24/7</span>
+                <span class="hero__stat-label">AI coverage across every channel</span>
+              </div>
             </div>
           </div>
-          <div class="badges">
-            <span class="badge" id="api-status">Checking API…</span>
-            <button class="badge badge--action" id="new-chat" type="button">＋ New chat</button>
-            <span class="badge badge--muted">Built for Neuro X</span>
+          <div class="hero__visual animate-up-delayed">
+            <div class="hero__visual-bg"></div>
+            <div class="hero__widget-preview">
+              <div class="hero__widget-header">
+                <span class="hero__widget-glow"></span>
+                <span>Live Assistance</span>
+              </div>
+              <ul class="hero__widget-list">
+                <li>Conversational commerce</li>
+                <li>Calendar & payment automation</li>
+                <li>Knowledge-grounded answers</li>
+              </ul>
+              <div class="hero__widget-footer">Powered by Neuro X intelligence</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--highlight" id="solutions">
+        <div class="container section__inner animate-up">
+          <header class="section__header">
+            <p class="eyebrow">Capabilities</p>
+            <h2>Deploy AI agents that feel on-brand, stay accurate, and close deals.</h2>
+            <p>
+              Neuro X assistants blend natural conversation with deterministic workflows, so every interaction is both
+              personal and precise.
+            </p>
+          </header>
+          <div class="features-grid">
+            <article class="feature-card">
+              <div class="feature-card__icon">🤖</div>
+              <h3>Sales & Support Automation</h3>
+              <p>
+                Capture leads, qualify opportunities, and resolve questions instantly with multi-lingual neural agents
+                tuned to your playbook.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-card__icon">🗓️</div>
+              <h3>Bookings & Payments</h3>
+              <p>
+                Auto-schedule meetings, collect deposits, and trigger reminders. Integrate with Stripe, Calendly,
+                HubSpot, and more.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-card__icon">📊</div>
+              <h3>Insights Dashboard</h3>
+              <p>
+                Track engagement, conversion, and satisfaction in real time. Spot drop-offs and coach the AI with one
+                click.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-card__icon">🧠</div>
+              <h3>Knowledge Control</h3>
+              <p>
+                Ground every answer in your trusted knowledge base. Upload docs, connect APIs, and ensure compliance out
+                of the box.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--split" id="capabilities">
+        <div class="container section__inner section__inner--split">
+          <div class="section__media animate-up">
+            <div class="media-card">
+              <header>
+                <span class="media-card__title">Neuro X Orchestrator</span>
+                <span class="media-card__badge">Beta</span>
+              </header>
+              <ul>
+                <li>Unified pipelines for chat, email, SMS, and voice.</li>
+                <li>Context memory that persists across sessions.</li>
+                <li>Custom playbooks with no-code branching.</li>
+                <li>Human handoff with full transcript and sentiment.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="section__content animate-up-delayed">
+            <p class="eyebrow">Orchestrated Intelligence</p>
+            <h2>Every workflow, orchestrated and measurable.</h2>
+            <p>
+              Neuro X weaves LLMs, deterministic logic, and your data sources into a single experience. We support
+              enterprise security requirements, explicit guardrails, and continuous improvement with reinforcement
+              learning from human feedback.
+            </p>
+            <div class="pill-list">
+              <span>Secure & compliant</span>
+              <span>Multi-tenant architecture</span>
+              <span>Realtime analytics</span>
+              <span>Human-in-the-loop</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--integrations" id="integrations">
+        <div class="container section__inner animate-up">
+          <header class="section__header">
+            <p class="eyebrow">Integrations</p>
+            <h2>Connect Neuro X to the tools your teams already love.</h2>
+            <p>Launch quickly with native integrations, secure APIs, and white-glove onboarding support.</p>
+          </header>
+          <div class="integration-grid">
+            <div class="integration-card">Salesforce</div>
+            <div class="integration-card">HubSpot</div>
+            <div class="integration-card">Slack</div>
+            <div class="integration-card">Stripe</div>
+            <div class="integration-card">Zendesk</div>
+            <div class="integration-card">Shopify</div>
+            <div class="integration-card">Calendly</div>
+            <div class="integration-card">Zapier</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact" id="contact">
+        <div class="container section__inner section__inner--split">
+          <div class="section__content animate-up">
+            <p class="eyebrow">Get in touch</p>
+            <h2>Ready to deploy your AI assistant?</h2>
+            <p>
+              Tell us about your use case and we’ll design a pilot program within 48 hours. Prefer to chat right now?
+              Tap the assistant in the corner — it can help you scope the perfect rollout.
+            </p>
+            <ul class="contact-list">
+              <li>Email: <a href="mailto:info@neurox.one">info@neurox.one</a></li>
+              <li>Call: <a href="tel:+14155550123">+1 (415) 555-0123</a></li>
+              <li>HQ: 33 Montgomery St, San Francisco, CA</li>
+            </ul>
+          </div>
+          <div class="section__media animate-up-delayed">
+            <form class="contact-form">
+              <label>
+                <span>Name</span>
+                <input type="text" placeholder="Your name" />
+              </label>
+              <label>
+                <span>Company</span>
+                <input type="text" placeholder="Company or team" />
+              </label>
+              <label>
+                <span>Email</span>
+                <input type="email" placeholder="you@company.com" />
+              </label>
+              <label>
+                <span>What can we build for you?</span>
+                <textarea placeholder="Share your goals or biggest challenges"></textarea>
+              </label>
+              <button type="button" class="btn btn--primary btn--wide">Schedule a call</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <div>
+          <a class="brand brand--footer" href="#hero">Neuro<span>X</span></a>
+          <p>Designing the next generation of intelligent customer experiences.</p>
+        </div>
+        <div class="site-footer__links">
+          <a href="#solutions">Solutions</a>
+          <a href="#capabilities">Capabilities</a>
+          <a href="#integrations">Integrations</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <p class="site-footer__legal">© <span id="current-year"></span> Neuro X. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <button id="chat-launcher" class="chat-launcher" aria-label="Open Neuro X Assistant" aria-expanded="false">
+      <span class="chat-launcher__pulse" aria-hidden="true"></span>
+      <span class="chat-launcher__icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path
+            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"
+          />
+        </svg>
+      </span>
+      <span class="chat-launcher__label">Ask Neuro X</span>
+    </button>
+
+    <div id="chat-shell" class="chat-shell" aria-hidden="true">
+      <div class="chat-window" id="chat-window" role="dialog" aria-labelledby="chat-title">
+        <header class="chat-header">
+          <div class="chat-header__meta">
+            <div class="chat-header__avatar" aria-hidden="true">💬</div>
+            <div>
+              <p id="chat-title" class="chat-header__title">Neuro X Assistant</p>
+              <span id="api-status" class="chat-header__status">Connecting…</span>
+            </div>
+          </div>
+          <div class="chat-header__actions">
+            <button id="new-chat" class="chat-header__pill" type="button">New</button>
+            <button id="chat-close" class="chat-header__pill chat-header__pill--icon" type="button" aria-label="Close chat">
+              <span aria-hidden="true">✕</span>
+            </button>
           </div>
         </header>
 
-        <section class="actions">
-          <button class="action" data-prompt="What does Neuro X build?">Services</button>
-          <button class="action" data-prompt="Show me some recent projects.">Projects</button>
-          <button class="action" data-prompt="How can I partner with Neuro X?">Partnerships</button>
-          <button class="action" data-prompt="How do I contact the team?">Contact</button>
-          <button class="action" data-prompt="Do you build AI tools?">AI tools</button>
-        </section>
-
-        <section id="chat" class="chat"></section>
-
-        <footer class="footer">
-          <input
-            id="message"
-            class="input"
-            placeholder="Ask about services, projects, or next steps..."
-            autocomplete="off"
-          />
-          <button id="stop" class="button button--ghost" hidden>Stop</button>
-          <button id="send" class="button button--primary" type="button" aria-label="Send message">
-            <span class="send-icon" aria-hidden="true">➤</span>
+        <div class="chat-quick-actions">
+          <button type="button" class="chat-prompt" data-chat-prompt="Tell me about Neuro X.">About Neuro X</button>
+          <button type="button" class="chat-prompt" data-chat-prompt="How can your AI assistant help my sales team?">
+            Sales Team Help
           </button>
+          <button type="button" class="chat-prompt" data-chat-prompt="Do you integrate with Shopify?">Integrations</button>
+        </div>
+
+        <section id="chat" class="chat-body" aria-live="polite" aria-label="Chat conversation"></section>
+
+        <footer class="chat-footer">
+          <button id="stop" class="chat-footer__button chat-footer__button--ghost" type="button" hidden>Stop</button>
+          <div class="chat-input">
+            <input
+              id="message"
+              class="chat-input__field"
+              type="text"
+              placeholder="Ask anything about Neuro X…"
+              autocomplete="off"
+            />
+            <button id="send" class="chat-input__send" type="button" aria-label="Send message">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M22 2 11 13" />
+                <path d="M22 2 15 22 11 13 2 9 22 2z" />
+              </svg>
+            </button>
+          </div>
         </footer>
       </div>
     </div>
 
+    <script>
+      document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
     <script src="/bot-config.js"></script>
     <script type="module" src="/main.js"></script>
   </body>
