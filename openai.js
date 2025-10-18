@@ -143,6 +143,13 @@ export async function loadTenantPrompts(force = false) {
         const sanitized = sanitizeTenantId(entry.name);
         tenants.push(sanitized);
         tenantPromptCache.delete(sanitized);
+
+        try {
+          await ensureTenantPrompt(sanitized);
+          console.log(`✅ Loaded tenant: ${sanitized}`);
+        } catch (loadError) {
+          console.error("tenant-prompt-preload-error", { tenantId: sanitized, error: loadError });
+        }
       }
     } catch (error) {
       if (error?.code !== "ENOENT") {
