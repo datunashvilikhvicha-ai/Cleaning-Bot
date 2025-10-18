@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import fs from "fs/promises";
+import { readFileSync } from "node:fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -87,28 +88,38 @@ function sanitizeTenantId(rawTenantId) {
   return tenantId.replace(/[^a-zA-Z0-9_-]/g, "").toLowerCase() || fallbackTenantId;
 }
 
+function loadPromptFromDisk(tenantId) {
+  const promptPath = path.join(tenantsRoot, tenantId, "prompt.md");
+  const raw = readFileSync(promptPath, "utf8");
+  return raw.trim() || null;
+}
+
 async function ensureTenantPrompt(tenantId) {
   const safeTenantId = sanitizeTenantId(tenantId);
-  if (tenantPromptCache.has(safeTenantId)) {
-    return tenantPromptCache.get(safeTenantId);
-  }
-
-  await loadTenantPrompts(true);
-  if (tenantPromptCache.has(safeTenantId)) {
-    return tenantPromptCache.get(safeTenantId);
-  }
-
   const promptPath = path.join(tenantsRoot, safeTenantId, "prompt.md");
+
   try {
-    const raw = await fs.readFile(promptPath, "utf8");
-    const trimmed = raw.trim();
-    tenantPromptCache.set(safeTenantId, trimmed || null);
-    return trimmed || null;
-  } catch (error) {
-    if (error?.code !== "ENOENT") {
-      console.error("tenant-prompt-load-error", { tenantId: safeTenantId, error });
+    const prompt = loadPromptFromDisk(safeTenantId);
+    console.log("[Prompt Loader] Reloading tenant prompts from disk...");
+    tenantPromptCache.set(safeTenantId, { prompt, mtimeMs: Date.now() });
+
+    if (safeTenantId === "neurox") {
+      tenantPromptCache.delete("neurox");
+      const forcedPrompt = loadPromptFromDisk("neurox");
+      tenantPromptCache.set("neurox", { prompt: forcedPrompt, mtimeMs: Date.now() });
+      console.log("[Prompt Watcher] Forced reload for tenant: neurox");
+      return forcedPrompt;
     }
-    tenantPromptCache.set(safeTenantId, null);
+
+    return prompt;
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      console.warn(`[Prompt Loader] Prompt file missing for tenant: ${safeTenantId}`);
+      tenantPromptCache.set(safeTenantId, { prompt: null, mtimeMs: null });
+      return null;
+    }
+
+    console.error("tenant-prompt-load-error", { tenantId: safeTenantId, error });
     return null;
   }
 }
@@ -119,7 +130,10 @@ export async function loadTenantPrompts(force = false) {
   }
 
   tenantIndexPromise = (async () => {
-    tenantPromptCache.clear();
+    if (force) {
+      tenantPromptCache.clear();
+    }
+
     const tenants = [];
 
     try {
@@ -128,20 +142,7 @@ export async function loadTenantPrompts(force = false) {
         if (!entry.isDirectory()) continue;
         const sanitized = sanitizeTenantId(entry.name);
         tenants.push(sanitized);
-
-        const promptPath = path.join(tenantsRoot, entry.name, "prompt.md");
-        let prompt = null;
-        try {
-          const raw = await fs.readFile(promptPath, "utf8");
-          prompt = raw.trim() || null;
-        } catch (error) {
-          if (error?.code !== "ENOENT") {
-            console.error("tenant-prompt-load-error", { tenantId: sanitized, error });
-          }
-        }
-
-        tenantPromptCache.set(sanitized, prompt);
-        console.log(`✅ Loaded tenant: ${sanitized}`);
+        tenantPromptCache.delete(sanitized);
       }
     } catch (error) {
       if (error?.code !== "ENOENT") {

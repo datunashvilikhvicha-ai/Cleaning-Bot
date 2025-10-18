@@ -7,7 +7,9 @@ import { fileURLToPath } from 'url';
 import { franc } from 'franc';
 import { streamBotResponse, askBot, loadTenantPrompts } from './openai.js';
 import { createLeadsStore } from './lib/leadsStore.js';
-import { readFile } from 'fs/promises';
+import { readFile, readdir } from 'fs/promises';
+import { watch } from 'node:fs';
+import { sendNotification } from './notifications/dispatcher.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -44,6 +46,52 @@ if (!loadedTenants.length) {
 }
 
 const widgetTemplate = await readFile(new URL('./public/widget.js', import.meta.url), 'utf8');
+
+const promptWatchers = new Map();
+
+async function setupPromptWatchers() {
+  const tenantsDir = path.join(__dirname, 'tenants');
+
+  let entries = [];
+  try {
+    entries = await readdir(tenantsDir, { withFileTypes: true });
+  } catch (error) {
+    if (error?.code !== 'ENOENT') {
+      console.error('prompt-watch-read-error', error);
+    }
+    return;
+  }
+
+  if (!promptWatchers.has(tenantsDir)) {
+    try {
+      const rootWatcher = watch(tenantsDir, { persistent: false }, () => {
+        void setupPromptWatchers();
+      });
+      promptWatchers.set(tenantsDir, rootWatcher);
+    } catch (error) {
+      console.error('prompt-watch-root-error', error);
+    }
+  }
+
+  for (const entry of entries) {
+    if (!entry.isDirectory()) continue;
+    const tenantDir = path.join(tenantsDir, entry.name);
+    if (promptWatchers.has(tenantDir)) continue;
+
+    try {
+      const watcher = watch(tenantDir, { persistent: false }, (eventType, filename) => {
+        if (typeof filename === 'string' && filename.endsWith('prompt.md')) {
+          console.log(`[Prompt Watcher] Detected ${eventType} in ${entry.name} prompt.md`);
+        }
+      });
+      promptWatchers.set(tenantDir, watcher);
+    } catch (error) {
+      console.error('prompt-watch-init-error', { tenant: entry.name, error });
+    }
+  }
+}
+
+void setupPromptWatchers();
 
 function normalizeTenantId(rawTenantId) {
   const tenantId = (rawTenantId || '').toString().trim();
@@ -294,6 +342,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.post('/leads', async (req, res) => {
+  const tenantId = resolveTenantId(req);
+
   const {
     name = '',
     phone = '',
@@ -311,6 +361,24 @@ app.post('/leads', async (req, res) => {
       details: 'Provide at least a name and phone or email.',
     });
   }
+
+  const leadTypeRaw =
+    req.body?.leadType ??
+    req.body?.lead_type ??
+    req.body?.type ??
+    'general';
+  const leadType =
+    typeof leadTypeRaw === 'string' && leadTypeRaw.trim()
+      ? leadTypeRaw.trim().toLowerCase().replace(/\s+/g, '_')
+      : 'general';
+
+  const messageSource = req.body?.message ?? req.body?.notes ?? '';
+  const message =
+    typeof messageSource === 'string'
+      ? messageSource.trim()
+      : messageSource && typeof messageSource.toString === 'function'
+        ? messageSource.toString().trim()
+        : '';
 
   const entry = {
     id: crypto.randomUUID(),
@@ -331,6 +399,17 @@ app.post('/leads', async (req, res) => {
     console.error('lead-store-write-error', error);
     return res.status(500).json({ error: 'STORE_WRITE_FAILED' });
   }
+
+  void sendNotification(tenantId, {
+    tenant: tenantId,
+    lead_type: leadType,
+    name: entry.name,
+    email: entry.email,
+    phone: entry.phone,
+    message,
+  }).catch((error) => {
+    console.error('notification-dispatch-error', error);
+  });
 
   res.status(201).json({ lead: entry });
 });

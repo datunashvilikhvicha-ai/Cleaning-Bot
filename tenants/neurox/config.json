@@ -1,0 +1,17 @@
+{
+  "telegram": {
+    "enabled": true,
+    "bot_token": "TELEGRAM_BOT_TOKEN_PLACEHOLDER",
+    "chat_id": "123456789"
+  },
+  "whatsapp": {
+    "enabled": false,
+    "api_url": "https://graph.facebook.com/v18.0/YOUR_WHATSAPP_NUMBER_ID/messages",
+    "access_token": "META_ACCESS_TOKEN_PLACEHOLDER",
+    "recipient": "15555551234"
+  },
+  "email": {
+    "enabled": true,
+    "to": "neuroxchatbot@gmail.com"
+  }
+}

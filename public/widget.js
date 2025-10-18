@@ -108,10 +108,10 @@ const FALLBACK_TENANT = "__FALLBACK_TENANT__";
     injectStyle(
       'neurox-widget-style',
       [
-        '.nxw-root{position:fixed;z-index:2147483647;font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#f8fafc;}',
-        '.nxw-root[data-position="right"]{right:26px;bottom:26px;}',
-        '.nxw-root[data-position="left"]{left:26px;bottom:26px;}',
-        '@media(max-width:520px){.nxw-root{left:50%!important;right:auto!important;bottom:18px;transform:translateX(-50%);}}',
+        '.nxw-root{position:fixed;z-index:2147483647;font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#f8fafc;right:24px;bottom:24px;bottom:calc(24px + env(safe-area-inset-bottom,0px));}',
+        '.nxw-root[data-position="right"]{left:auto;right:24px;}',
+        '.nxw-root[data-position="left"]{left:24px;right:auto;}',
+        '@media(max-width:520px){.nxw-root{left:50%!important;right:auto!important;bottom:24px;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);}}',
         '.nxw-launcher{all:unset;position:relative;display:flex;align-items:center;gap:12px;padding:12px 18px;border-radius:999px;background:linear-gradient(135deg,#2563eb,#9333ea);color:#f8fafc;font-weight:600;cursor:pointer;box-shadow:0 20px 48px rgba(59,130,246,0.45);transition:transform 0.25s ease,box-shadow 0.25s ease;}',
         '.nxw-launcher:hover{transform:translateY(-2px);box-shadow:0 30px 60px rgba(147,51,234,0.48);}',
         '.nxw-launcher__icon{display:grid;place-items:center;width:34px;height:34px;border-radius:999px;background:rgba(255,255,255,0.16);font-size:16px;}',
