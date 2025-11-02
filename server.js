@@ -10,6 +10,7 @@ import { createLeadsStore } from './lib/leadsStore.js';
 import { readFile, readdir } from 'fs/promises';
 import { watch } from 'node:fs';
 import { sendNotification } from './notifications/dispatcher.js';
+import { app, startWebhookServer } from './webhook.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -175,7 +176,6 @@ const corsOptions = {
   ],
 };
 
-const app = express();
 app.use(cors(corsOptions));
 app.use(express.json());
 
@@ -1056,9 +1056,17 @@ app.use((_req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
+const server = startWebhookServer(PORT);
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+if (server?.listening) {
+  console.log(`🚀 Server running on port ${server.address()?.port ?? PORT}`);
   void setupPromptWatchers();
-});
+} else if (typeof server?.once === 'function') {
+  server.once('listening', () => {
+    console.log(`🚀 Server running on port ${server.address()?.port ?? PORT}`);
+    void setupPromptWatchers();
+  });
+} else {
+  console.error('Failed to start Express server');
+}
